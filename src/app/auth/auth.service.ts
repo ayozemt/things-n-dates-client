@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,7 +11,20 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   verifyToken(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/verify`);
+    const authToken = localStorage.getItem('authToken');
+
+    if (!authToken) {
+      throw new Error('No auth token found');
+    }
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`, // Include the token in the Authorization header
+      }),
+    };
+
+    return this.http.get<any>(`${this.baseUrl}/verify`, httpOptions);
   }
 
   storeToken(token: string): void {
