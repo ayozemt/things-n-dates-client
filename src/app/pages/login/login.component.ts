@@ -20,7 +20,7 @@ export class LoginComponent {
         password: this.password,
       });
       // Login successful, navigate to home page or wherever needed
-      this.router.navigate(['/']);
+      this.router.navigate(['/list']);
     } catch (error) {
       // Handle login error, show error message to user
       console.error('Login error:', error);
