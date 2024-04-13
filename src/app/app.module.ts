@@ -3,13 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { AuthProviderComponent } from './auth/auth-provider.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ThingListComponent } from './pages/thing-list/thing-list.component';
@@ -20,7 +21,7 @@ import { ThingListComponent } from './pages/thing-list/thing-list.component';
     LoginComponent,
     AuthProviderComponent,
     SignupComponent,
-    ThingListComponent
+    ThingListComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +32,11 @@ import { ThingListComponent } from './pages/thing-list/thing-list.component';
     MatFormFieldModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
