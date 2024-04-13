@@ -1,0 +1,10 @@
+<div *ngIf="things.length > 0; else noThings">
+  <h2>Your Things</h2>
+  <ul>
+    <li *ngFor="let thing of things">{{ thing.name }} - {{ thing.date }}</li>
+  </ul>
+</div>
+
+<ng-template #noThings>
+  <p>No things found.</p>
+</ng-template>
