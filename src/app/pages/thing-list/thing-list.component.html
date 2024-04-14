@@ -8,8 +8,13 @@
     <mat-card-subtitle>{{ thing.type }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p>{{ thing.date | date }}</p>
-    <p *ngIf="thing.place">Place: {{ thing.place }}</p>
+    <p><span class="label">Date:</span> {{ thing.date | date }}</p>
+    <p *ngIf="thing.place">
+      <span class="label">Place:</span> {{ thing.place }}
+    </p>
+    <p *ngIf="thing.review">
+      <span class="label">Review:</span> {{ thing.review }}
+    </p>
     <div *ngIf="thing.rating" class="star-rating">
       <mat-icon
         class="star-icon"
