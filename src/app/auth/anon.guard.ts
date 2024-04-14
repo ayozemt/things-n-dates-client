@@ -13,7 +13,7 @@ export class AnonGuard implements CanActivate {
       return true; // El usuario no está autenticado, permitir acceso a la ruta
     } else {
       // El usuario ya está autenticado, redirigir a la página principal
-      this.router.navigate(['/']);
+      this.router.navigate(['/list']);
       return false;
     }
   }
