@@ -14,6 +14,10 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ThingListComponent } from './pages/thing-list/thing-list.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +26,7 @@ import { ThingListComponent } from './pages/thing-list/thing-list.component';
     AuthProviderComponent,
     SignupComponent,
     ThingListComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +38,9 @@ import { ThingListComponent } from './pages/thing-list/thing-list.component';
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
+    MatIconModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

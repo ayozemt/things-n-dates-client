@@ -1,0 +1,29 @@
+.thing-card {
+  max-width: 400px;
+  margin: 20px;
+}
+
+mat-card-content {
+  padding-bottom: 0;
+  margin-top: 20px;
+}
+
+mat-card-actions {
+  justify-content: flex-end;
+}
+
+mat-card-title {
+  color: #e91e63;
+}
+
+.star-rating {
+  color: lightgrey;
+}
+
+.star-icon {
+  font-size: 24px;
+}
+
+.star-icon.filled {
+  color: #e91e63;
+}
