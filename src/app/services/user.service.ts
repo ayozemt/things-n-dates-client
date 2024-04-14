@@ -27,16 +27,19 @@ export class UserService {
     }
   }
 
-  async login(credentials: { email: string; password: string }): Promise<User> {
+  async login(credentials: { email: string; password: string }): Promise<void> {
     try {
       const loggedInUser = await firstValueFrom(
-        this.http.post<User>(
+        this.http.post<{ authToken: string }>(
           `${this.baseUrl}/login`,
-          credentials,
-          this.httpOptions
+          credentials
         )
       );
-      return loggedInUser;
+      if (loggedInUser) {
+        localStorage.setItem('authToken', loggedInUser.authToken);
+      } else {
+        throw new Error('No se recibió un token de autenticación');
+      }
     } catch (error) {
       this.handleError('login', error);
       throw error;
