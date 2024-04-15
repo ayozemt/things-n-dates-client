@@ -2,17 +2,18 @@
   <mat-card-content class="column-container">
     <h2>Login</h2>
     <form (ngSubmit)="onSubmit()" class="column-container">
-      <mat-form-field>
+      <mat-form-field color="accent">
         <mat-label>Email:</mat-label>
         <input
           matInput
           type="email"
           [(ngModel)]="email"
           name="email"
+          autocomplete="email"
           required
         />
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field color="accent">
         <mat-label>Password:</mat-label>
         <input
           matInput
