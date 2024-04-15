@@ -3,17 +3,18 @@
     <h2>Add New Thing</h2>
     <form (ngSubmit)="addThing()" class="column-container">
       <mat-form-field color="accent">
-        <mat-label color="accent">Name</mat-label>
+        <mat-label for="name" color="accent">Name</mat-label>
         <input
           matInput
           [(ngModel)]="newThing.name"
           name="name"
           type="text"
+          autocomplete="name"
           required
         />
       </mat-form-field>
       <mat-form-field color="accent">
-        <mat-label>Type</mat-label>
+        <mat-label for="type">Type</mat-label>
         <mat-select [(ngModel)]="newThing.type" name="type">
           <mat-option value="Book">Book</mat-option>
           <mat-option value="Concert">Concert</mat-option>
@@ -24,7 +25,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field color="accent">
-        <mat-label>Date</mat-label>
+        <mat-label for="date">Date</mat-label>
         <input
           matInput
           [matDatepicker]="picker"
@@ -39,7 +40,7 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <mat-form-field color="accent">
-        <mat-label>Review</mat-label>
+        <mat-label for="review">Review</mat-label>
         <textarea
           matInput
           [(ngModel)]="newThing.review"
@@ -48,11 +49,11 @@
         ></textarea>
       </mat-form-field>
       <mat-form-field color="accent">
-        <mat-label>Place</mat-label>
+        <mat-label for="place">Place</mat-label>
         <input matInput [(ngModel)]="newThing.place" name="place" type="text" />
       </mat-form-field>
       <mat-form-field color="accent">
-        <mat-label>Rating</mat-label>
+        <mat-label for="rating">Rating</mat-label>
         <input
           matInput
           [(ngModel)]="newThing.rating"
