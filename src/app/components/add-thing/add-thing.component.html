@@ -27,11 +27,16 @@
         <mat-label>Date</mat-label>
         <input
           matInput
+          [matDatepicker]="picker"
           [(ngModel)]="newThing.date"
           name="date"
-          type="date"
           required
         />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <mat-form-field color="accent">
         <mat-label>Review</mat-label>

@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { AddThingComponent } from './components/add-thing/add-thing.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AddThingComponent } from './components/add-thing/add-thing.component';
     MatDialogModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatDatepickerModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
