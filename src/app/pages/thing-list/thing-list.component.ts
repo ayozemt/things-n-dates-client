@@ -5,6 +5,7 @@ import Thing from '../../interfaces/Thing';
 import { ThingService } from '../../services/thing.service';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { AddThingComponent } from '../../components/add-thing/add-thing.component';
+import { EditThingComponent } from '../../components/edit-thing/edit-thing.component';
 
 @Component({
   selector: 'app-thing-list',
@@ -47,6 +48,27 @@ export class ThingListComponent implements OnInit {
           await this.loadThings();
         } catch (error) {
           console.error('Error adding Thing:', error);
+        }
+      }
+    });
+  }
+
+  async openEditThingModal(thingId: string): Promise<void> {
+    console.log("Editing thing with ID:", thingId);
+    const dialogRef = this.dialog.open(EditThingComponent, {
+      width: '300px',
+      data: { thingId: thingId },
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        try {
+          this.snackBar.open('Thing updated successfully', 'Close', {
+            duration: 2000,
+          });
+          await this.loadThings();
+        } catch (error) {
+          console.error('Error updating Thing:', error);
         }
       }
     });

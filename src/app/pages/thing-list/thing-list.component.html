@@ -31,5 +31,12 @@
     >
       <mat-icon>delete</mat-icon>
     </button>
+    <button
+      mat-icon-button
+      color="accent"
+      (click)="openEditThingModal(thing._id)"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>

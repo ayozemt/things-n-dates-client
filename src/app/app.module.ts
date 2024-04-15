@@ -21,6 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { AddThingComponent } from './components/add-thing/add-thing.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { EditThingComponent } from './components/edit-thing/edit-thing.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ThingListComponent,
     ConfirmDialogComponent,
     AddThingComponent,
+    EditThingComponent,
   ],
   imports: [
     BrowserModule,
