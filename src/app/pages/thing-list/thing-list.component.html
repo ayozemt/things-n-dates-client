@@ -1,8 +1,4 @@
-<mat-card
-  *ngFor="let thing of things"
-  class="thing-card"
-  (click)="confirmDeleteThing(thing._id)"
->
+<mat-card *ngFor="let thing of things" class="thing-card">
   <mat-card-header>
     <mat-card-title>{{ thing.name }}</mat-card-title>
     <mat-card-subtitle>{{ thing.type }}</mat-card-subtitle>
