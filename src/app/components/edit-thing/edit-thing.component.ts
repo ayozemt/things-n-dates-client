@@ -18,7 +18,6 @@ export class EditThingComponent implements OnInit {
     date: new Date(),
     review: '',
     place: '',
-    rating: 1,
     user: '',
   };
 

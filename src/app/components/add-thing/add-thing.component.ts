@@ -18,8 +18,7 @@ export class AddThingComponent implements OnInit {
     date: new Date(),
     review: '',
     place: '',
-    rating: 1,
-    user: '', // El ID de usuario debe ser proporcionado desde el componente padre
+    user: '',
   };
 
   constructor(
