@@ -1,7 +1,7 @@
 .column-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
 }
 
 .card-container {
@@ -18,4 +18,9 @@ body {
 
 h2 {
   color: #e91e63;
+  text-align: center;
+}
+
+mat-card-actions {
+  justify-content: space-around;
 }
