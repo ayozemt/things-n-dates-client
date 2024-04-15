@@ -54,7 +54,6 @@ export class ThingListComponent implements OnInit {
   }
 
   async openEditThingModal(thingId: string): Promise<void> {
-    console.log("Editing thing with ID:", thingId);
     const dialogRef = this.dialog.open(EditThingComponent, {
       width: '300px',
       data: { thingId: thingId },
