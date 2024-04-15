@@ -1,3 +1,6 @@
+<button mat-icon-button color="accent" (click)="openAddThingModal()">
+  <mat-icon>add</mat-icon>
+</button>
 <mat-card *ngFor="let thing of things" class="thing-card">
   <mat-card-header>
     <mat-card-title>{{ thing.name }}</mat-card-title>

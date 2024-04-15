@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import Thing from '../../interfaces/Thing';
 import { ThingService } from '../../services/thing.service';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { AddThingComponent } from '../../components/add-thing/add-thing.component';
 
 @Component({
   selector: 'app-thing-list',
@@ -27,8 +28,27 @@ export class ThingListComponent implements OnInit {
     try {
       this.things = await this.thingService.getThingsByUserId('userId'); // Reemplazar 'userId' con el ID de usuario real
     } catch (error) {
-      console.error('Error loading things:', error);
+      console.error('Error loading Things:', error);
     }
+  }
+
+  async openAddThingModal(): Promise<void> {
+    const dialogRef = this.dialog.open(AddThingComponent, {
+      width: '300px',
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        try {
+          this.snackBar.open('Thing added succesfully', 'Close', {
+            duration: 2000,
+          });
+        } catch (error) {
+          console.error('Error adding Thing:', error);
+        }
+      }
+    });
   }
 
   async confirmDeleteThing(thingId: string): Promise<void> {
@@ -45,7 +65,7 @@ export class ThingListComponent implements OnInit {
             duration: 2000,
           });
         } catch (error) {
-          console.error('Error deleting thing:', error);
+          console.error('Error deleting Thing:', error);
         }
       }
     });
@@ -56,7 +76,7 @@ export class ThingListComponent implements OnInit {
       await this.thingService.deleteThing(thingId);
       this.things = this.things.filter((thing) => thing._id !== thingId);
     } catch (error) {
-      console.error('Error deleting thing:', error);
+      console.error('Error deleting Thing:', error);
     }
   }
 }
