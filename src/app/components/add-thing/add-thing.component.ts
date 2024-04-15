@@ -3,12 +3,17 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ThingService } from '../../services/thing.service';
 import Thing from '../../interfaces/Thing';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
 
 @Component({
   selector: 'app-add-thing',
   templateUrl: './add-thing.component.html',
   styleUrls: ['./add-thing.component.scss'],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+  ],
 })
 export class AddThingComponent implements OnInit {
   newThing: Thing = {
