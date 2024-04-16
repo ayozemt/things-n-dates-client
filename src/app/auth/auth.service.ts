@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import User from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +12,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  verifyToken(): Observable<any> {
+  verifyToken(): Observable<boolean> {
     const authToken = localStorage.getItem('authToken');
 
     if (!authToken) {
       console.log('No estás autenticado');
-      return of({ authenticated: false });
+      return of(false);
     }
 
     const httpOptions = {
@@ -26,10 +27,9 @@ export class AuthService {
       }),
     };
 
-    return this.http.get<any>(`${this.baseUrl}/verify`, httpOptions).pipe(
-      catchError((_error) => {
-        return of({ authenticated: false });
-      })
+    return this.http.get<User>(`${this.baseUrl}/verify`, httpOptions).pipe(
+      map(() => true),
+      catchError(() => of(false))
     );
   }
 
