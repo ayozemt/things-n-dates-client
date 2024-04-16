@@ -28,7 +28,10 @@ export class AuthService {
     };
 
     return this.http.get<User>(`${this.baseUrl}/verify`, httpOptions).pipe(
-      map(() => true),
+      map((user: User) => {
+        // Si se recibe un usuario, significa que el token es válido y el usuario está autenticado
+        return !!user;
+      }),
       catchError(() => of(false))
     );
   }
