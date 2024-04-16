@@ -9,18 +9,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent {
-  user: User = { email: '', password: '', name: '' };
+  user: User = { _id: '', email: '', password: '', name: '' };
 
   constructor(private userService: UserService, private router: Router) {}
 
   async onSubmit(): Promise<void> {
-    const { email, password, name } = this.user;
     try {
-      const signedUpUser = await this.userService.signup({
-        email,
-        password,
-        name,
-      });
+      const signedUpUser = await this.userService.signup(this.user);
       console.log('User signed up successfully:', signedUpUser);
       this.router.navigate(['/login']);
     } catch (error) {
