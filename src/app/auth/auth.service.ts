@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,8 @@ export class AuthService {
     const authToken = localStorage.getItem('authToken');
 
     if (!authToken) {
-      throw new Error('No auth token found');
+      console.log('No estás autenticado');
+      return of({ authenticated: false });
     }
 
     const httpOptions = {
@@ -24,7 +26,11 @@ export class AuthService {
       }),
     };
 
-    return this.http.get<any>(`${this.baseUrl}/verify`, httpOptions);
+    return this.http.get<any>(`${this.baseUrl}/verify`, httpOptions).pipe(
+      catchError((_error) => {
+        return of({ authenticated: false });
+      })
+    );
   }
 
   storeToken(token: string): void {
