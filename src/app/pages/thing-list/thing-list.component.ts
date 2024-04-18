@@ -27,7 +27,10 @@ export class ThingListComponent implements OnInit {
 
   async loadThings(): Promise<void> {
     try {
-      this.things = await this.thingService.getThingsByUserId('userId'); // Reemplazar 'userId' con el ID de usuario real
+      this.things = await this.thingService.getThingsByUserId('userId');
+      this.things.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
     } catch (error) {
       console.error('Error loading Things:', error);
     }
