@@ -3,12 +3,16 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Thing from '../../interfaces/Thing';
 import { ThingService } from '../../services/thing.service';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @Component({
   selector: 'app-edit-thing',
   templateUrl: './edit-thing.component.html',
   styleUrls: ['./edit-thing.component.scss'],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+  ],
 })
 export class EditThingComponent implements OnInit {
   editedThing: Thing = {
