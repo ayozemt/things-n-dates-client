@@ -1,4 +1,7 @@
-<app-toolbar (yearSelected)="onYearSelected($event)"></app-toolbar>
+<app-toolbar
+  [things]="things"
+  (yearSelected)="onYearSelected($event)"
+></app-toolbar>
 <button mat-icon-button color="accent" (click)="openAddThingModal()">
   <mat-icon>add</mat-icon>
 </button>

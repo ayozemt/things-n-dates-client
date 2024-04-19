@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import Thing from '../../interfaces/Thing';
 
 @Component({
   selector: 'app-toolbar',
@@ -6,12 +7,29 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent {
-  @Output() yearSelected = new EventEmitter<number>();
-  selectedYear: number = new Date().getFullYear();
-  years: number[] = [2021, 2022, 2023, 2024, 2025, 2026, 2027];
+  @Output() yearSelected = new EventEmitter<number | null>();
+  selectedYear: number | 'All' = new Date().getFullYear();
+  @Input() things: Thing[] = [];
+  years: (number | 'All')[] = [];
 
-  onYearSelect(year: number) {
+  constructor() {
+    this.years = ['All', ...this.getUniqueYears(this.things)];
+  }
+
+  ngOnChanges() {
+    this.years = ['All', ...this.getUniqueYears(this.things)];
+  }
+
+  onYearSelect(year: number | 'All') {
     this.selectedYear = year;
-    this.yearSelected.emit(year);
+    this.yearSelected.emit(year === 'All' ? null : year);
+  }
+
+  private getUniqueYears(things: Thing[]): number[] {
+    const yearsSet = new Set<number>();
+    things.forEach((thing) => {
+      yearsSet.add(new Date(thing.date).getFullYear());
+    });
+    return Array.from(yearsSet);
   }
 }

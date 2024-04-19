@@ -15,7 +15,6 @@ import { EditThingComponent } from '../../components/edit-thing/edit-thing.compo
 export class ThingListComponent implements OnInit {
   things: Thing[] = [];
   filteredThings: Thing[] = [];
-  years: number[] = [2021, 2022, 2023, 2024, 2025, 2026, 2027];
 
   constructor(
     private thingService: ThingService,
@@ -30,8 +29,11 @@ export class ThingListComponent implements OnInit {
   async loadThings(): Promise<void> {
     try {
       this.things = await this.thingService.getThingsByUserId('userId');
-      this.filteredThings = [...this.things];
       this.things.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+      this.filteredThings = [...this.things];
+      this.filteredThings.sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
       );
     } catch (error) {
@@ -39,7 +41,7 @@ export class ThingListComponent implements OnInit {
     }
   }
 
-  async onYearSelected(year: number): Promise<void> {
+  async onYearSelected(year: number | null): Promise<void> {
     if (year === null) {
       this.filteredThings = [...this.things];
     } else {
