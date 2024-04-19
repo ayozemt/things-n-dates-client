@@ -2,7 +2,7 @@ import User from './User';
 
 interface Thing {
   _id: string;
-  type: 'Book' | 'Concert' | 'Film' | 'Trip' | 'Food' | 'Activity';
+  type: 'Book' | 'Concert' | 'Film' | 'Trip' | 'Food' | 'Activity' | 'Celebration';
   name: string;
   date: Date;
   review?: string;
