@@ -104,6 +104,7 @@ export class ThingListComponent implements OnInit {
           this.snackBar.open('Thing deleted successfully', 'Close', {
             duration: 2000,
           });
+          await this.loadThings();
         } catch (error) {
           console.error('Error deleting Thing:', error);
         }
