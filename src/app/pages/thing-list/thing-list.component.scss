@@ -1,3 +1,15 @@
+.first-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h2 {
+  color: #e91e63;
+  margin: 10px;
+  padding-right: 10px;
+}
+
 .thing-card {
   max-width: 500px;
   margin: 20px;
