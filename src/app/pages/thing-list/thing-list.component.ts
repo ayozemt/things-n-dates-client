@@ -15,6 +15,7 @@ import { EditThingComponent } from '../../components/edit-thing/edit-thing.compo
 export class ThingListComponent implements OnInit {
   things: Thing[] = [];
   filteredThings: Thing[] = [];
+  selectedYear: number | null = null;
 
   constructor(
     private thingService: ThingService,
@@ -32,21 +33,23 @@ export class ThingListComponent implements OnInit {
       this.things.sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
       );
-      this.filteredThings = [...this.things];
-      this.filteredThings.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      );
+      this.applyYearFilter();
     } catch (error) {
       console.error('Error loading Things:', error);
     }
   }
 
   async onYearSelected(year: number | null): Promise<void> {
-    if (year === null) {
+    this.selectedYear = year;
+    this.applyYearFilter();
+  }
+
+  applyYearFilter(): void {
+    if (this.selectedYear === null) {
       this.filteredThings = [...this.things];
     } else {
       this.filteredThings = this.things.filter(
-        (thing) => new Date(thing.date).getFullYear() === year
+        (thing) => new Date(thing.date).getFullYear() === this.selectedYear
       );
     }
   }
@@ -116,6 +119,7 @@ export class ThingListComponent implements OnInit {
     try {
       await this.thingService.deleteThing(thingId);
       this.things = this.things.filter((thing) => thing._id !== thingId);
+      this.applyYearFilter();
     } catch (error) {
       console.error('Error deleting Thing:', error);
     }

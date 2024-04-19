@@ -8,7 +8,7 @@ import Thing from '../../interfaces/Thing';
 })
 export class ToolbarComponent {
   @Output() yearSelected = new EventEmitter<number | null>();
-  selectedYear: number | 'All' = new Date().getFullYear();
+  @Input() selectedYear: number | string = 'All';
   @Input() things: Thing[] = [];
   years: (number | 'All')[] = [];
 
