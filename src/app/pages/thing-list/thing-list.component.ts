@@ -53,7 +53,7 @@ export class ThingListComponent implements OnInit {
 
   async openAddThingModal(): Promise<void> {
     const dialogRef = this.dialog.open(AddThingComponent, {
-      width: '300px',
+      width: '500px',
       data: {},
     });
 
@@ -73,7 +73,7 @@ export class ThingListComponent implements OnInit {
 
   async openEditThingModal(thingId: string): Promise<void> {
     const dialogRef = this.dialog.open(EditThingComponent, {
-      width: '300px',
+      width: '500px',
       data: { thingId: thingId },
     });
 
