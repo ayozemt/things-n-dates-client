@@ -5,7 +5,6 @@
     </button>
     <!-- <span>things-n-dates</span> -->
     <span class="example-spacer"></span>
-
     <button mat-icon-button class="example-icon">
       <mat-icon>search</mat-icon>
     </button>
@@ -17,8 +16,10 @@
     </button>
     <mat-form-field color="accent" class="year" subscriptSizing="dynamic">
       <mat-label for="year">Year</mat-label>
-      <mat-select name="year">
-        <mat-option value="year">2027</mat-option>
+      <mat-select name="year" (selectionChange)="onYearSelect($event.value)">
+        <mat-option *ngFor="let year of years" [value]="year">{{
+          year
+        }}</mat-option>
       </mat-select>
     </mat-form-field>
   </mat-toolbar>

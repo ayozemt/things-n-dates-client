@@ -1,8 +1,8 @@
-<app-toolbar></app-toolbar>
+<app-toolbar (yearSelected)="onYearSelected($event)"></app-toolbar>
 <button mat-icon-button color="accent" (click)="openAddThingModal()">
   <mat-icon>add</mat-icon>
 </button>
-<mat-card *ngFor="let thing of things" class="thing-card">
+<mat-card *ngFor="let thing of filteredThings" class="thing-card">
   <mat-card-header>
     <mat-card-title>{{ thing.name }}</mat-card-title>
     <mat-card-subtitle>{{ thing.type }}</mat-card-subtitle>
