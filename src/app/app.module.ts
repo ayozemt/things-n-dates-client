@@ -22,6 +22,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { AddThingComponent } from './components/add-thing/add-thing.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { EditThingComponent } from './components/edit-thing/edit-thing.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { EditThingComponent } from './components/edit-thing/edit-thing.component
     ConfirmDialogComponent,
     AddThingComponent,
     EditThingComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import { EditThingComponent } from './components/edit-thing/edit-thing.component
     MatSnackBarModule,
     MatSelectModule,
     MatDatepickerModule,
+    MatToolbarModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
