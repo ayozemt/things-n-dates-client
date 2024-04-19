@@ -16,7 +16,11 @@
     </button>
     <mat-form-field color="accent" class="year" subscriptSizing="dynamic">
       <mat-label for="year">Year</mat-label>
-      <mat-select name="year" (selectionChange)="onYearSelect($event.value)">
+      <mat-select
+        name="year"
+        [(value)]="selectedYear"
+        (selectionChange)="onYearSelect($event.value)"
+      >
         <mat-option *ngFor="let year of years" [value]="year">{{
           year
         }}</mat-option>
