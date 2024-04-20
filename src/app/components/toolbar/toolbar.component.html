@@ -5,9 +5,17 @@
     </button>
     <!-- <span>things-n-dates</span> -->
     <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon">
-      <mat-icon>search</mat-icon>
-    </button>
+    <mat-form-field
+      color="accent"
+      class="search-field"
+      subscriptSizing="dynamic"
+    >
+      <input
+        matInput
+        placeholder="Search"
+        (input)="applySearchFilter($any($event.target).value)"
+      />
+    </mat-form-field>
     <button mat-icon-button class="example-icon">
       <mat-icon>sort</mat-icon>
     </button>

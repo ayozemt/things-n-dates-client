@@ -124,4 +124,44 @@ export class ThingListComponent implements OnInit {
       console.error('Error deleting Thing:', error);
     }
   }
+
+  async applySearchFilter(searchTerm: string | null): Promise<void> {
+    if (!searchTerm || !searchTerm.trim()) {
+      this.applyYearFilter();
+      return;
+    }
+
+    this.filteredThings = this.filteredThings.filter((thing) =>
+      this.matchesSearchCriteria(thing, searchTerm)
+    );
+  }
+
+  matchesSearchCriteria(thing: Thing, searchTerm: string): boolean {
+    const nameMatch = thing.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const typeMatch = thing.type
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const placeMatch =
+      thing.place?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false;
+    const reviewMatch =
+      thing.review?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false;
+
+    const dateString = new Date(thing.date).toLocaleDateString();
+    const dateMatch = dateString.includes(searchTerm);
+
+    const ratingMatch = thing.rating
+      ? thing.rating.toString().includes(searchTerm)
+      : false;
+
+    return (
+      nameMatch ||
+      typeMatch ||
+      placeMatch ||
+      reviewMatch ||
+      dateMatch ||
+      ratingMatch
+    );
+  }
 }

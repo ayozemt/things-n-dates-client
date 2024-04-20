@@ -8,6 +8,7 @@ import Thing from '../../interfaces/Thing';
 })
 export class ToolbarComponent {
   @Output() yearSelected = new EventEmitter<number | null>();
+  @Output() searchChanged = new EventEmitter<string | null>();
   @Input() selectedYear: number | string = 'All';
   @Input() things: Thing[] = [];
   years: (number | 'All')[] = [];
@@ -31,5 +32,9 @@ export class ToolbarComponent {
       yearsSet.add(new Date(thing.date).getFullYear());
     });
     return Array.from(yearsSet);
+  }
+
+  applySearchFilter(searchTerm: string | null): void {
+    this.searchChanged.emit(searchTerm);
   }
 }

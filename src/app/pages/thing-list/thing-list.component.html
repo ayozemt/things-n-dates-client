@@ -1,6 +1,7 @@
 <app-toolbar
   [things]="things"
   (yearSelected)="onYearSelected($event)"
+  (searchChanged)="applySearchFilter($event)"
 ></app-toolbar>
 <div class="first-row">
   <button mat-icon-button color="accent" (click)="openAddThingModal()">
