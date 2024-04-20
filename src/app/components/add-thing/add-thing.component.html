@@ -1,75 +1,82 @@
-<mat-card class="card-container">
-  <mat-card-content class="column-container">
-    <h2>Add New Thing</h2>
-    <form (ngSubmit)="addThing()" class="column-container">
-      <mat-form-field color="accent">
-        <mat-label for="name" color="accent">Name</mat-label>
-        <input
-          matInput
-          [(ngModel)]="newThing.name"
-          name="name"
-          type="text"
-          autocomplete="name"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field color="accent">
-        <mat-label for="type">Type</mat-label>
-        <mat-select [(ngModel)]="newThing.type" name="type" required>
-          <mat-option value="Book">Book</mat-option>
-          <mat-option value="Concert">Concert</mat-option>
-          <mat-option value="Film">Film</mat-option>
-          <mat-option value="Trip">Trip</mat-option>
-          <mat-option value="Food">Food</mat-option>
-          <mat-option value="Activity">Activity</mat-option>
-          <mat-option value="Celebration">Celebration</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field color="accent">
-        <mat-label for="date">Date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          [(ngModel)]="newThing.date"
-          name="date"
-          required
-        />
-        <mat-datepicker-toggle
-          matIconSuffix
-          [for]="picker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field color="accent">
-        <mat-label for="review">Review</mat-label>
-        <textarea
-          matInput
-          [(ngModel)]="newThing.review"
-          name="review"
-          type="text"
-        ></textarea>
-      </mat-form-field>
-      <mat-form-field color="accent">
-        <mat-label for="place">Place</mat-label>
-        <input matInput [(ngModel)]="newThing.place" name="place" type="text" />
-      </mat-form-field>
-      <mat-form-field color="accent">
-        <mat-label for="rating">Rating</mat-label>
-        <input
-          matInput
-          [(ngModel)]="newThing.rating"
-          name="rating"
-          type="number"
-          min="1"
-          max="5"
-        />
-      </mat-form-field>
-      <mat-card-actions>
-        <button mat-raised-button color="accent" type="submit">Add</button>
-        <button mat-raised-button type="button" (click)="closeDialog()">
-          Cancel
-        </button>
-      </mat-card-actions>
-    </form>
-  </mat-card-content>
-</mat-card>
+<div class="modal">
+  <mat-card class="card-container">
+    <mat-card-content class="column-container">
+      <h2>Add New Thing</h2>
+      <form (ngSubmit)="addThing()" class="column-container">
+        <mat-form-field color="accent">
+          <mat-label for="name" color="accent">Name</mat-label>
+          <input
+            matInput
+            [(ngModel)]="newThing.name"
+            name="name"
+            type="text"
+            autocomplete="name"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <mat-label for="type">Type</mat-label>
+          <mat-select [(ngModel)]="newThing.type" name="type" required>
+            <mat-option value="Book">Book</mat-option>
+            <mat-option value="Concert">Concert</mat-option>
+            <mat-option value="Film">Film</mat-option>
+            <mat-option value="Trip">Trip</mat-option>
+            <mat-option value="Food">Food</mat-option>
+            <mat-option value="Activity">Activity</mat-option>
+            <mat-option value="Celebration">Celebration</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <mat-label for="date">Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [(ngModel)]="newThing.date"
+            name="date"
+            required
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <mat-label for="review">Review</mat-label>
+          <textarea
+            matInput
+            [(ngModel)]="newThing.review"
+            name="review"
+            type="text"
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <mat-label for="place">Place</mat-label>
+          <input
+            matInput
+            [(ngModel)]="newThing.place"
+            name="place"
+            type="text"
+          />
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <mat-label for="rating">Rating</mat-label>
+          <input
+            matInput
+            [(ngModel)]="newThing.rating"
+            name="rating"
+            type="number"
+            min="1"
+            max="5"
+          />
+        </mat-form-field>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" type="submit">Add</button>
+          <button mat-raised-button type="button" (click)="closeDialog()">
+            Cancel
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
