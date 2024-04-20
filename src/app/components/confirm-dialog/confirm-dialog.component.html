@@ -1,12 +1,18 @@
-<h2 mat-dialog-title class="title">Confirmation</h2>
-<mat-dialog-content>
-  <p>{{ data }}</p>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-raised-button [mat-dialog-close]="false" cdkFocusInitial>
-    Cancel
-  </button>
-  <button mat-raised-button color="accent" [mat-dialog-close]="true">
-    Delete
-  </button>
-</mat-dialog-actions>
+<div class="modal">
+  <mat-card class="card-container">
+    <mat-card-content>
+      <h2 mat-dialog-title class="title">Confirmation</h2>
+      <mat-dialog-content>
+        <p>{{ data }}</p>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button mat-raised-button [mat-dialog-close]="false" cdkFocusInitial>
+          Cancel
+        </button>
+        <button mat-raised-button color="accent" [mat-dialog-close]="true">
+          Delete
+        </button>
+      </mat-dialog-actions>
+    </mat-card-content>
+  </mat-card>
+</div>

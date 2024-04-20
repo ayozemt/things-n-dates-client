@@ -96,7 +96,7 @@ export class ThingListComponent implements OnInit {
 
   async confirmDeleteThing(thingId: string): Promise<void> {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '250px',
+      width: '350px',
       data: 'Are you sure you want to delete this Thing?',
     });
 
