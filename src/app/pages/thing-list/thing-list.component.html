@@ -15,7 +15,7 @@
     <mat-card-subtitle>{{ thing.type }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p><span class="label">Date:</span> {{ thing.date | date }}</p>
+    <p><span class="label">Date:</span> {{ thing.date | date : "fullDate" }}</p>
     <p *ngIf="thing.place">
       <span class="label">Place:</span> {{ thing.place }}
     </p>
