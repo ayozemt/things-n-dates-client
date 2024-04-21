@@ -32,7 +32,11 @@ export class AuthService {
         // Si se recibe un usuario, significa que el token es válido y el usuario está autenticado
         return !!user;
       }),
-      catchError(() => of(false))
+      catchError((_error) => {
+        // Si hay un error al verificar el token, borra el token almacenado
+        this.removeToken();
+        return of(false);
+      })
     );
   }
 
