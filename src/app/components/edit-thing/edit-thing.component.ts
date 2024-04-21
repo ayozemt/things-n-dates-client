@@ -2,16 +2,17 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Thing from '../../interfaces/Thing';
 import { ThingService } from '../../services/thing.service';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import 'moment/locale/es';
 
 @Component({
   selector: 'app-edit-thing',
   templateUrl: './edit-thing.component.html',
   styleUrls: ['./edit-thing.component.scss'],
   providers: [
-    provideNativeDateAdapter(),
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+    provideMomentDateAdapter(),
   ],
 })
 export class EditThingComponent implements OnInit {
