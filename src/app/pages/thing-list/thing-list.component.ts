@@ -38,6 +38,8 @@ export class ThingListComponent implements OnInit {
       console.error('Error loading Things:', error);
       this.snackBar.open('Error loading Things', 'Close', {
         duration: 2000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
       });
     }
   }
@@ -130,6 +132,8 @@ export class ThingListComponent implements OnInit {
         'Close',
         {
           duration: 2000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
         }
       );
     }

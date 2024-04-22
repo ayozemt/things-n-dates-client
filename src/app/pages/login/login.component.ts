@@ -33,7 +33,7 @@ export class LoginComponent {
         this.router.navigate(['/list']);
       } catch (error: any) {
         console.error('Login error:', error);
-        let errorMessage = 'An error occurred';
+        let errorMessage = 'An error occurred on the server while logging in';
         if (error.status === 401 || error.status === 404) {
           errorMessage = 'Wrong username or password';
         }
