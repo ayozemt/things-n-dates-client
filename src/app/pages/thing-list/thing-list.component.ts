@@ -104,10 +104,7 @@ export class ThingListComponent implements OnInit {
       if (result) {
         try {
           await this.deleteThing(thingId);
-          this.snackBar.open('Thing deleted successfully', 'Close', {
-            duration: 2000,
-          });
-          await this.loadThings();
+          // await this.loadThings();
         } catch (error) {
           console.error('Error deleting Thing:', error);
         }
@@ -120,6 +117,9 @@ export class ThingListComponent implements OnInit {
       await this.thingService.deleteThing(thingId);
       this.things = this.things.filter((thing) => thing._id !== thingId);
       this.applyYearFilter();
+      this.snackBar.open('Thing deleted successfully', 'Close', {
+        duration: 2000,
+      });
     } catch (error) {
       console.error('Error deleting Thing:', error);
     }
