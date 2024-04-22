@@ -10,9 +10,10 @@
       class="search-field"
       subscriptSizing="dynamic"
     >
+      <mat-label for="year">Search</mat-label>
       <input
         matInput
-        placeholder="Search"
+        placeholder="ex. book"
         (input)="applySearchFilter($any($event.target).value)"
       />
     </mat-form-field>
