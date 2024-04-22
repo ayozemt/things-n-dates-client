@@ -8,10 +8,22 @@
           matInput
           type="email"
           name="email"
-          [(ngModel)]="user.email"
+          [formControl]="emailFormControl"
           autocomplete="email"
-          required
         />
+        <mat-error
+          *ngIf="
+            emailFormControl.invalid &&
+            (emailFormControl.dirty || emailFormControl.touched)
+          "
+        >
+          <span *ngIf="emailFormControl.hasError('required')"
+            >Email is required</span
+          >
+          <span *ngIf="emailFormControl.hasError('email')"
+            >Invalid email format</span
+          >
+        </mat-error>
       </mat-form-field>
       <mat-form-field color="accent">
         <mat-label for="password">Password</mat-label>
@@ -19,9 +31,29 @@
           matInput
           type="password"
           name="password"
-          [(ngModel)]="user.password"
-          required
+          [formControl]="passwordFormControl"
         />
+        <mat-hint
+          >Password must have at least 6 characters and contain at least one
+          number, one lowercase and one uppercase letter.</mat-hint
+        >
+        <mat-error
+          *ngIf="
+            passwordFormControl.invalid &&
+            (passwordFormControl.dirty || passwordFormControl.touched)
+          "
+        >
+          <span *ngIf="passwordFormControl.hasError('required')"
+            >Password is required.
+          </span>
+          <span *ngIf="passwordFormControl.hasError('passwordLength')"
+            >Password must have at least 6 characters.</span
+          >
+          <span *ngIf="passwordFormControl.hasError('passwordRequirements')"
+            >Password must contain at least one number, one lowercase and one
+            uppercase letter.</span
+          >
+        </mat-error>
       </mat-form-field>
       <mat-form-field color="accent">
         <mat-label for="name">Name</mat-label>
@@ -29,10 +61,19 @@
           matInput
           type="text"
           name="name"
-          [(ngModel)]="user.name"
+          [formControl]="nameFormControl"
           autocomplete="name"
-          required
         />
+        <mat-error
+          *ngIf="
+            nameFormControl.invalid &&
+            (nameFormControl.dirty || nameFormControl.touched)
+          "
+        >
+          <span *ngIf="nameFormControl.hasError('required')"
+            >Name is required</span
+          >
+        </mat-error>
       </mat-form-field>
       <button mat-raised-button color="accent" type="submit">SignUp</button>
     </form>
