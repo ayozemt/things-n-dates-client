@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ThingService } from '../../services/thing.service';
 import Thing from '../../interfaces/Thing';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
@@ -29,7 +30,8 @@ export class AddThingComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddThingComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private thingService: ThingService
+    private thingService: ThingService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {}
@@ -38,8 +40,11 @@ export class AddThingComponent implements OnInit {
     try {
       const createdThing = await this.thingService.createThing(this.newThing);
       this.dialogRef.close(createdThing);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error adding thing:', error);
+      this.snackBar.open(error.error.message || 'Error adding Thing', 'Close', {
+        duration: 2000,
+      });
     }
   }
 
