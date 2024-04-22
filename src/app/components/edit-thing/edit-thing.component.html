@@ -2,7 +2,11 @@
   <mat-card class="card-container">
     <mat-card-content class="column-container">
       <h2>Edit Thing</h2>
-      <form (ngSubmit)="editThing()" class="column-container">
+      <form
+        (ngSubmit)="editThing()"
+        class="column-container"
+        #editThingForm="ngForm"
+      >
         <mat-form-field color="accent">
           <mat-label for="name" color="accent">Name</mat-label>
           <input
@@ -13,6 +17,7 @@
             autocomplete="name"
             required
           />
+          <mat-error>Name is required</mat-error>
         </mat-form-field>
         <mat-form-field color="accent">
           <mat-label for="type">Type</mat-label>
@@ -40,6 +45,7 @@
             [for]="picker"
           ></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+          <mat-error>Date is required</mat-error>
         </mat-form-field>
         <mat-form-field color="accent">
           <mat-label for="review">Review</mat-label>
@@ -71,7 +77,14 @@
           />
         </mat-form-field>
         <mat-card-actions>
-          <button mat-raised-button color="accent" type="submit">Save</button>
+          <button
+            mat-raised-button
+            color="accent"
+            type="submit"
+            [disabled]="!editThingForm.valid"
+          >
+            Save
+          </button>
           <button mat-raised-button type="button" (click)="closeDialog()">
             Cancel
           </button>
