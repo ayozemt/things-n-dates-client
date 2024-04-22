@@ -1,7 +1,7 @@
 .column-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
 }
 
 .card-container {
@@ -10,8 +10,22 @@
 
 h2 {
   color: #e91e63;
+  text-align: center;
 }
 
 mat-form-field {
-  margin-bottom: 80px;
+  margin-bottom: 30px;
+}
+
+.password {
+  margin-bottom: 60px;
+}
+
+mat-card-actions {
+  justify-content: space-around;
+}
+
+button {
+  width: 100px;
+  margin-bottom: 10px;
 }
