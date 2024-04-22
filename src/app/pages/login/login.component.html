@@ -6,22 +6,44 @@
         <mat-label>Email:</mat-label>
         <input
           matInput
-          type="email"
-          [(ngModel)]="email"
-          name="email"
+          [formControl]="emailFormControl"
           autocomplete="email"
-          required
+          type="email"
+          name="email"
         />
+        <mat-error
+          *ngIf="
+            emailFormControl.invalid &&
+            (emailFormControl.dirty || emailFormControl.touched)
+          "
+        >
+          <span *ngIf="emailFormControl.hasError('required')"
+            >Email is required</span
+          >
+          <span *ngIf="emailFormControl.hasError('email')"
+            >Invalid email format</span
+          >
+        </mat-error>
       </mat-form-field>
       <mat-form-field color="accent">
         <mat-label>Password:</mat-label>
         <input
           matInput
+          [formControl]="passwordFormControl"
+          autocomplete="current-password"
           type="password"
-          [(ngModel)]="password"
           name="password"
-          required
         />
+        <mat-error
+          *ngIf="
+            passwordFormControl.invalid &&
+            (passwordFormControl.dirty || passwordFormControl.touched)
+          "
+        >
+          <span *ngIf="passwordFormControl.hasError('required')"
+            >Password is required</span
+          >
+        </mat-error>
       </mat-form-field>
       <button mat-raised-button color="accent" type="submit">Login</button>
     </form>
