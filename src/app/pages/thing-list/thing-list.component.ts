@@ -36,6 +36,9 @@ export class ThingListComponent implements OnInit {
       this.applyYearFilter();
     } catch (error) {
       console.error('Error loading Things:', error);
+      this.snackBar.open('Error loading Things', 'Close', {
+        duration: 2000,
+      });
     }
   }
 
@@ -120,8 +123,15 @@ export class ThingListComponent implements OnInit {
       this.snackBar.open('Thing deleted successfully', 'Close', {
         duration: 2000,
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting Thing:', error);
+      this.snackBar.open(
+        error.error.message || 'Error deleting Thing',
+        'Close',
+        {
+          duration: 2000,
+        }
+      );
     }
   }
 
