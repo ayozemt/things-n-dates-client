@@ -7,15 +7,18 @@ import Thing from '../../interfaces/Thing';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent {
-  @Output() yearSelected = new EventEmitter<number | null>();
-  @Output() searchChanged = new EventEmitter<string | null>();
   @Input() selectedYear: number | string = 'All';
   @Input() things: Thing[] = [];
-  years: (number | 'All')[] = [];
+
+  @Output() yearSelected = new EventEmitter<number | null>();
+  @Output() searchChanged = new EventEmitter<string | null>();
   @Output() sortByNameAsc = new EventEmitter<void>();
   @Output() sortByNameDesc = new EventEmitter<void>();
   @Output() sortByDateAsc = new EventEmitter<void>();
   @Output() sortByDateDesc = new EventEmitter<void>();
+
+  years: (number | 'All')[] = [];
+  currentSortType: 'nameAsc' | 'nameDesc' | 'dateAsc' | 'dateDesc' | null = null;
 
   constructor() {
     this.years = ['All', ...this.getUniqueYears(this.things)];
@@ -43,18 +46,28 @@ export class ToolbarComponent {
   }
 
   sortByNameAscClicked(): void {
+    this.currentSortType = 'nameAsc';
     this.sortByNameAsc.emit();
   }
 
   sortByNameDescClicked(): void {
+    this.currentSortType = 'nameDesc';
     this.sortByNameDesc.emit();
   }
 
   sortByDateAscClicked(): void {
+    this.currentSortType = 'dateAsc';
     this.sortByDateAsc.emit();
   }
 
   sortByDateDescClicked(): void {
+    this.currentSortType = 'dateDesc';
     this.sortByDateDesc.emit();
+  }
+
+  isFilterSelected(
+    filterType: 'nameAsc' | 'nameDesc' | 'dateAsc' | 'dateDesc'
+  ): boolean {
+    return this.currentSortType === filterType;
   }
 }

@@ -21,24 +21,40 @@
       <mat-icon>sort</mat-icon>
     </button>
     <mat-menu #sort="matMenu">
-      <button mat-menu-item (click)="sortByNameAscClicked()">
-        <mat-icon>sort_by_alpha</mat-icon>
-        <mat-icon>arrow_downward</mat-icon>
+      <button
+        mat-menu-item
+        (click)="sortByNameAscClicked()"
+        [class.selected-filter]="isFilterSelected('nameAsc')"
+      >
+        <mat-icon color="accent">sort_by_alpha</mat-icon>
+        <mat-icon color="accent">arrow_downward</mat-icon>
         <span>Sort A - Z</span>
       </button>
-      <button mat-menu-item (click)="sortByNameDescClicked()">
-        <mat-icon>sort_by_alpha</mat-icon>
-        <mat-icon>arrow_upward</mat-icon>
+      <button
+        mat-menu-item
+        (click)="sortByNameDescClicked()"
+        [class.selected-filter]="isFilterSelected('nameDesc')"
+      >
+        <mat-icon color="accent">sort_by_alpha</mat-icon>
+        <mat-icon color="accent">arrow_upward</mat-icon>
         <span>Sort Z - A</span>
       </button>
-      <button mat-menu-item (click)="sortByDateAscClicked()">
-        <mat-icon>date_range</mat-icon>
-        <mat-icon>arrow_downward</mat-icon>
+      <button
+        mat-menu-item
+        (click)="sortByDateAscClicked()"
+        [class.selected-filter]="isFilterSelected('dateAsc')"
+      >
+        <mat-icon color="accent">date_range</mat-icon>
+        <mat-icon color="accent">arrow_downward</mat-icon>
         <span>Date ascending</span>
       </button>
-      <button mat-menu-item (click)="sortByDateDescClicked()">
-        <mat-icon>date_range</mat-icon>
-        <mat-icon>arrow_upward</mat-icon>
+      <button
+        mat-menu-item
+        (click)="sortByDateDescClicked()"
+        [class.selected-filter]="isFilterSelected('dateDesc')"
+      >
+        <mat-icon color="accent">date_range</mat-icon>
+        <mat-icon color="accent">arrow_upward</mat-icon>
         <span>Date descending</span>
       </button>
     </mat-menu>
