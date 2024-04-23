@@ -12,12 +12,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  verifyToken(): Observable<boolean> {
+  verifyToken(): Observable<any> {
     const authToken = localStorage.getItem('authToken');
 
     if (!authToken) {
       console.log('No estás autenticado');
-      return of(false);
+      return of(null);
     }
 
     const httpOptions = {
@@ -27,15 +27,15 @@ export class AuthService {
       }),
     };
 
-    return this.http.get<User>(`${this.baseUrl}/verify`, httpOptions).pipe(
-      map((user: User) => {
+    return this.http.get<any>(`${this.baseUrl}/verify`, httpOptions).pipe(
+      map((user: any) => {
         // Si se recibe un usuario, significa que el token es válido y el usuario está autenticado
-        return !!user;
+        return user;
       }),
       catchError((_error) => {
         // Si hay un error al verificar el token, borra el token almacenado
         this.removeToken();
-        return of(false);
+        return of(null);
       })
     );
   }

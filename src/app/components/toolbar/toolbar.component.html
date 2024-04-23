@@ -1,8 +1,18 @@
 <p>
   <mat-toolbar color="accent" class="toolbar">
-    <button mat-icon-button class="example-icon">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon">
       <mat-icon>menu</mat-icon>
     </button>
+    <mat-menu #menu>
+      <button mat-menu-item>
+        <mat-icon color="accent">cruelty_free</mat-icon>
+        <span>Hello, {{ userName }}!</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon color="accent">logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
     <!-- <span>things-n-dates</span> -->
     <span class="example-spacer"></span>
     <mat-form-field

@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import Thing from '../../interfaces/Thing';
+import { Router } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,6 +11,7 @@ import Thing from '../../interfaces/Thing';
 export class ToolbarComponent {
   @Input() selectedYear: number | string = 'All';
   @Input() things: Thing[] = [];
+  @Input() userName: string | null = null;
 
   @Output() yearSelected = new EventEmitter<number | null>();
   @Output() searchChanged = new EventEmitter<string | null>();
@@ -20,8 +23,11 @@ export class ToolbarComponent {
   years: (number | 'All')[] = [];
   currentSortType: 'nameAsc' | 'nameDesc' | 'dateAsc' | 'dateDesc' | null = null;
 
-  constructor() {
+  constructor(private authService: AuthService, private router: Router) {
     this.years = ['All', ...this.getUniqueYears(this.things)];
+    this.authService.verifyToken().subscribe((user: any) => {
+      this.userName = user.name;
+    });
   }
 
   ngOnChanges() {
@@ -69,5 +75,10 @@ export class ToolbarComponent {
     filterType: 'nameAsc' | 'nameDesc' | 'dateAsc' | 'dateDesc'
   ): boolean {
     return this.currentSortType === filterType;
+  }
+
+  logout(): void {
+    this.authService.removeToken();
+    this.router.navigateByUrl('/login');
   }
 }
