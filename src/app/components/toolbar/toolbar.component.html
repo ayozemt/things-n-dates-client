@@ -17,11 +17,33 @@
         (input)="applySearchFilter($any($event.target).value)"
       />
     </mat-form-field>
-    <button mat-icon-button class="example-icon">
+    <button mat-icon-button [matMenuTriggerFor]="sort" class="example-icon">
       <mat-icon>sort</mat-icon>
     </button>
+    <mat-menu #sort="matMenu">
+      <button mat-menu-item (click)="sortByNameAscClicked()">
+        <mat-icon>sort_by_alpha</mat-icon>
+        <mat-icon>arrow_downward</mat-icon>
+        <span>Sort A - Z</span>
+      </button>
+      <button mat-menu-item (click)="sortByNameDescClicked()">
+        <mat-icon>sort_by_alpha</mat-icon>
+        <mat-icon>arrow_upward</mat-icon>
+        <span>Sort Z - A</span>
+      </button>
+      <button mat-menu-item (click)="sortByDateAscClicked()">
+        <mat-icon>date_range</mat-icon>
+        <mat-icon>arrow_downward</mat-icon>
+        <span>Date ascending</span>
+      </button>
+      <button mat-menu-item (click)="sortByDateDescClicked()">
+        <mat-icon>date_range</mat-icon>
+        <mat-icon>arrow_upward</mat-icon>
+        <span>Date descending</span>
+      </button>
+    </mat-menu>
     <button mat-icon-button class="example-icon">
-      <mat-icon>favorite</mat-icon>
+      <mat-icon>favorite_outline</mat-icon>
     </button>
     <mat-form-field color="accent" class="year" subscriptSizing="dynamic">
       <mat-label for="year">Year</mat-label>

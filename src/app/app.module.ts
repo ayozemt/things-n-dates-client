@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { AuthProviderComponent } from './auth/auth-provider.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
@@ -55,6 +56,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDatepickerModule,
     MatToolbarModule,
     ReactiveFormsModule,
+    MatMenuModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -2,6 +2,10 @@
   [things]="things"
   (yearSelected)="onYearSelected($event)"
   (searchChanged)="applySearchFilter($event)"
+  (sortByNameAsc)="sortByNameAsc()"
+  (sortByNameDesc)="sortByNameDesc()"
+  (sortByDateAsc)="sortByDateAsc()"
+  (sortByDateDesc)="sortByDateDesc()"
 ></app-toolbar>
 <div class="first-row">
   <button mat-icon-button color="accent" (click)="openAddThingModal()">

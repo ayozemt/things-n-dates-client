@@ -12,6 +12,10 @@ export class ToolbarComponent {
   @Input() selectedYear: number | string = 'All';
   @Input() things: Thing[] = [];
   years: (number | 'All')[] = [];
+  @Output() sortByNameAsc = new EventEmitter<void>();
+  @Output() sortByNameDesc = new EventEmitter<void>();
+  @Output() sortByDateAsc = new EventEmitter<void>();
+  @Output() sortByDateDesc = new EventEmitter<void>();
 
   constructor() {
     this.years = ['All', ...this.getUniqueYears(this.things)];
@@ -36,5 +40,21 @@ export class ToolbarComponent {
 
   applySearchFilter(searchTerm: string | null): void {
     this.searchChanged.emit(searchTerm);
+  }
+
+  sortByNameAscClicked(): void {
+    this.sortByNameAsc.emit();
+  }
+
+  sortByNameDescClicked(): void {
+    this.sortByNameDesc.emit();
+  }
+
+  sortByDateAscClicked(): void {
+    this.sortByDateAsc.emit();
+  }
+
+  sortByDateDescClicked(): void {
+    this.sortByDateDesc.emit();
   }
 }

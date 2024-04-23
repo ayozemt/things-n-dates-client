@@ -178,4 +178,28 @@ export class ThingListComponent implements OnInit {
       ratingMatch
     );
   }
+
+  sortByNameAsc(): void {
+    this.things.sort((a, b) => a.name.localeCompare(b.name));
+    this.applyYearFilter();
+  }
+
+  sortByNameDesc(): void {
+    this.things.sort((a, b) => b.name.localeCompare(a.name));
+    this.applyYearFilter();
+  }
+
+  sortByDateAsc(): void {
+    this.things.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+    this.applyYearFilter();
+  }
+
+  sortByDateDesc(): void {
+    this.things.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+    this.applyYearFilter();
+  }
 }
