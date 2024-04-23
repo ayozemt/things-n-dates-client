@@ -11,7 +11,9 @@
   <button mat-icon-button color="accent" (click)="openAddThingModal()">
     <mat-icon>add</mat-icon>
   </button>
-  <h2>things-n-dates</h2>
+  <h2>
+    {{ filteredThings.length > 0 ? "things-n-dates" : "click on + to start" }}
+  </h2>
 </div>
 <mat-card *ngFor="let thing of filteredThings" class="thing-card">
   <mat-card-header>
