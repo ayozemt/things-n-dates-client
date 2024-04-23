@@ -5,8 +5,11 @@ import { AnonGuard } from './auth/anon.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ThingListComponent } from './pages/thing-list/thing-list.component';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent, canActivate: [AnonGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [AnonGuard] },
   { path: 'list', component: ThingListComponent, canActivate: [AuthGuard] },

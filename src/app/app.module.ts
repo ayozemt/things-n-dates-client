@@ -26,6 +26,7 @@ import { EditThingComponent } from './components/edit-thing/edit-thing.component
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AddThingComponent,
     EditThingComponent,
     ToolbarComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
