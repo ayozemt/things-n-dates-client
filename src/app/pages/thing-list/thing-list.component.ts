@@ -145,9 +145,19 @@ export class ThingListComponent implements OnInit {
       return;
     }
 
-    this.filteredThings = this.filteredThings.filter((thing) =>
-      this.matchesSearchCriteria(thing, searchTerm)
+    this.filteredThings = this.things.filter(
+      (thing) =>
+        this.matchesSearchCriteria(thing, searchTerm) &&
+        this.matchesYearFilter(thing)
     );
+  }
+
+  matchesYearFilter(thing: Thing): boolean {
+    if (this.selectedYear === null) {
+      return true;
+    } else {
+      return new Date(thing.date).getFullYear() === this.selectedYear;
+    }
   }
 
   matchesSearchCriteria(thing: Thing, searchTerm: string): boolean {
