@@ -16,6 +16,7 @@ export class ThingListComponent implements OnInit {
   things: Thing[] = [];
   filteredThings: Thing[] = [];
   selectedYear: number | null = null;
+  searchTerm: string = '';
 
   constructor(
     private thingService: ThingService,
@@ -52,10 +53,20 @@ export class ThingListComponent implements OnInit {
   applyYearFilter(): void {
     if (this.selectedYear === null) {
       this.filteredThings = [...this.things];
+      this.applySearchFilter(this.searchTerm);
     } else {
-      this.filteredThings = this.things.filter(
-        (thing) => new Date(thing.date).getFullYear() === this.selectedYear
-      );
+      // Si hay un término de búsqueda, aplicar el filtro de búsqueda y luego filtrar por año
+      if (this.searchTerm && this.searchTerm.trim()) {
+        this.filteredThings = this.things.filter(
+          (thing) =>
+            this.matchesSearchCriteria(thing, this.searchTerm) &&
+            new Date(thing.date).getFullYear() === this.selectedYear
+        );
+      } else {
+        this.filteredThings = this.things.filter(
+          (thing) => new Date(thing.date).getFullYear() === this.selectedYear
+        );
+      }
     }
   }
 
@@ -140,14 +151,11 @@ export class ThingListComponent implements OnInit {
   }
 
   async applySearchFilter(searchTerm: string | null): Promise<void> {
-    if (!searchTerm || !searchTerm.trim()) {
-      this.applyYearFilter();
-      return;
-    }
+    this.searchTerm = searchTerm || '';
 
     this.filteredThings = this.things.filter(
       (thing) =>
-        this.matchesSearchCriteria(thing, searchTerm) &&
+        this.matchesSearchCriteria(thing, this.searchTerm) &&
         this.matchesYearFilter(thing)
     );
   }
