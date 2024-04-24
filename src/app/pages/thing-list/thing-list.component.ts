@@ -220,4 +220,10 @@ export class ThingListComponent implements OnInit {
     );
     this.applyYearFilter();
   }
+
+  generateGoogleMapsURL(place: string): string {
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      place
+    )}`;
+  }
 }

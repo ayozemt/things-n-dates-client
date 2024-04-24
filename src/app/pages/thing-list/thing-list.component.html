@@ -8,7 +8,12 @@
   (sortByDateDesc)="sortByDateDesc()"
 ></app-toolbar>
 <div class="first-row">
-  <button mat-icon-button color="accent" (click)="openAddThingModal()">
+  <button
+    mat-icon-button
+    class="add"
+    color="accent"
+    (click)="openAddThingModal()"
+  >
     <mat-icon>add</mat-icon>
   </button>
   <h2>
@@ -23,7 +28,10 @@
   <mat-card-content>
     <p><span class="label">Date:</span> {{ thing.date | date : "fullDate" }}</p>
     <p *ngIf="thing.place">
-      <span class="label">Place:</span> {{ thing.place }}
+      <span class="label">Place: </span>
+      <a [href]="generateGoogleMapsURL(thing.place)" target="_blank">{{
+        thing.place
+      }}</a>
     </p>
     <p *ngIf="thing.review">
       <span class="label">Review:</span> {{ thing.review }}
