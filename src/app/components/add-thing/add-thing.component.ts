@@ -24,8 +24,11 @@ export class AddThingComponent implements OnInit {
     date: new Date(),
     review: '',
     place: '',
+    rating: null,
     user: '',
   };
+  stars: number[] = [1, 2, 3, 4, 5];
+  selectedRating: number | null = null;
 
   constructor(
     public dialogRef: MatDialogRef<AddThingComponent>,
@@ -38,6 +41,7 @@ export class AddThingComponent implements OnInit {
 
   async addThing(): Promise<void> {
     try {
+      this.newThing.rating = this.selectedRating;
       const createdThing = await this.thingService.createThing(this.newThing);
       this.dialogRef.close(createdThing);
     } catch (error: any) {

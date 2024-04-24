@@ -28,3 +28,38 @@ mat-card-actions {
 .modal {
   background-color: lightpink;
 }
+
+.star-rating {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.star-icon {
+  cursor: pointer;
+  color: #ccc;
+}
+
+.star-icon.filled {
+  color: #e91e63;
+}
+
+.star-icon:active {
+  color: #e91e63;
+}
+
+.star-icon:nth-child(1):hover ~ .star-icon {
+  color: #ccc;
+}
+
+.star-icon:nth-child(2):hover ~ .star-icon {
+  color: #ccc;
+}
+
+.star-icon:nth-child(3):hover ~ .star-icon {
+  color: #ccc;
+}
+
+.star-icon:nth-child(4):hover ~ .star-icon {
+  color: #ccc;
+}

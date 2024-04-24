@@ -7,7 +7,7 @@ interface Thing {
   date: Date;
   review?: string;
   place?: string;
-  rating?: number;
+  rating?: number | null;
   user: User['_id'];
 }
 

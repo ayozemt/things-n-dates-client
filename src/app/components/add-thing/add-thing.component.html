@@ -66,17 +66,16 @@
             type="text"
           />
         </mat-form-field>
-        <mat-form-field color="accent">
-          <mat-label for="rating">Rating</mat-label>
-          <input
-            matInput
-            [(ngModel)]="newThing.rating"
-            name="rating"
-            type="number"
-            min="1"
-            max="5"
-          />
-        </mat-form-field>
+        <div class="star-rating">
+          <mat-icon
+            *ngFor="let star of stars"
+            class="star-icon"
+            [ngClass]="{ filled: star <= (selectedRating ?? 0) }"
+            (click)="selectedRating = star"
+          >
+            star
+          </mat-icon>
+        </div>
         <mat-card-actions>
           <button
             mat-raised-button
