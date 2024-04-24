@@ -1,52 +1,54 @@
-<mat-card class="card-container">
-  <mat-card-content class="column-container">
-    <h2>Login</h2>
-    <form (ngSubmit)="onSubmit()" class="column-container">
-      <mat-form-field color="accent">
-        <mat-label>Email:</mat-label>
-        <input
-          matInput
-          [formControl]="emailFormControl"
-          autocomplete="email"
-          type="email"
-          name="email"
-        />
-        <mat-error
-          *ngIf="
-            emailFormControl.invalid &&
-            (emailFormControl.dirty || emailFormControl.touched)
-          "
-        >
-          <span *ngIf="emailFormControl.hasError('required')"
-            >Email is required</span
+<div class="container">
+  <mat-card class="card-container">
+    <mat-card-content class="column-container">
+      <h2>Login</h2>
+      <form (ngSubmit)="onSubmit()" class="column-container">
+        <mat-form-field color="accent">
+          <mat-label>Email:</mat-label>
+          <input
+            matInput
+            [formControl]="emailFormControl"
+            autocomplete="email"
+            type="email"
+            name="email"
+          />
+          <mat-error
+            *ngIf="
+              emailFormControl.invalid &&
+              (emailFormControl.dirty || emailFormControl.touched)
+            "
           >
-          <span *ngIf="emailFormControl.hasError('email')"
-            >Invalid email format</span
+            <span *ngIf="emailFormControl.hasError('required')"
+              >Email is required</span
+            >
+            <span *ngIf="emailFormControl.hasError('email')"
+              >Invalid email format</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <mat-label>Password:</mat-label>
+          <input
+            matInput
+            [formControl]="passwordFormControl"
+            autocomplete="current-password"
+            type="password"
+            name="password"
+          />
+          <mat-error
+            *ngIf="
+              passwordFormControl.invalid &&
+              (passwordFormControl.dirty || passwordFormControl.touched)
+            "
           >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field color="accent">
-        <mat-label>Password:</mat-label>
-        <input
-          matInput
-          [formControl]="passwordFormControl"
-          autocomplete="current-password"
-          type="password"
-          name="password"
-        />
-        <mat-error
-          *ngIf="
-            passwordFormControl.invalid &&
-            (passwordFormControl.dirty || passwordFormControl.touched)
-          "
-        >
-          <span *ngIf="passwordFormControl.hasError('required')"
-            >Password is required</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <button mat-raised-button color="accent" type="submit">Login</button>
-    </form>
-    <p>New to things-n-dates? <a routerLink="/signup">Sign up</a></p>
-  </mat-card-content>
-</mat-card>
+            <span *ngIf="passwordFormControl.hasError('required')"
+              >Password is required</span
+            >
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" type="submit">Login</button>
+      </form>
+      <p>New to things-n-dates? <a routerLink="/signup">Sign up</a></p>
+    </mat-card-content>
+  </mat-card>
+</div>
