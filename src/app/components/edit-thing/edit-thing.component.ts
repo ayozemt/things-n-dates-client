@@ -24,8 +24,11 @@ export class EditThingComponent implements OnInit {
     date: new Date(),
     review: '',
     place: '',
+    rating: null,
     user: '',
   };
+  stars: number[] = [1, 2, 3, 4, 5];
+  selectedRating: number | null = null;
 
   constructor(
     public dialogRef: MatDialogRef<EditThingComponent>,
@@ -43,6 +46,7 @@ export class EditThingComponent implements OnInit {
       this.editedThing = await this.thingService.getThingById(
         this.data.thingId
       );
+      this.selectedRating = this.editedThing.rating ?? null;
     } catch (error) {
       console.error('Error loading thing:', error);
     }
@@ -50,6 +54,7 @@ export class EditThingComponent implements OnInit {
 
   async editThing(): Promise<void> {
     try {
+      this.editedThing.rating = this.selectedRating;
       const updatedThing = await this.thingService.updateThing(
         this.editedThing._id,
         this.editedThing
@@ -65,6 +70,10 @@ export class EditThingComponent implements OnInit {
         }
       );
     }
+  }
+
+  clearRating(): void {
+    this.selectedRating = null;
   }
 
   closeDialog(): void {
