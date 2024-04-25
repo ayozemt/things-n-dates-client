@@ -46,6 +46,11 @@ export class SignupComponent {
           _id: '',
         });
         console.log('User signed up successfully:', signedUpUser);
+        this.snackBar.open('User signed up successfully', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
         this.router.navigate(['/login']);
       } catch (error: any) {
         console.error('Error signing up:', error);
