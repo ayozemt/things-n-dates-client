@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, firstValueFrom } from 'rxjs';
 import Thing from '../interfaces/Thing';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThingService {
-  private baseUrl = 'http://localhost:5005/thing';
+  private baseUrl = environment.apiUrl + '/thing';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
