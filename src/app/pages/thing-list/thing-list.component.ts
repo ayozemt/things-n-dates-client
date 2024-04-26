@@ -100,32 +100,18 @@ export class ThingListComponent implements OnInit {
   }
 
   matchesSearchCriteria(thing: Thing, searchTerm: string): boolean {
-    const nameMatch = thing.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const typeMatch = thing.type
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const placeMatch =
-      thing.place?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false;
-    const reviewMatch =
-      thing.review?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false;
+    const lowerSearchTerm = searchTerm.toLowerCase();
 
-    const dateString = new Date(thing.date).toLocaleDateString();
-    const dateMatch = dateString.includes(searchTerm);
+    const matches = [
+      thing.name.toLowerCase().includes(lowerSearchTerm),
+      thing.type.toLowerCase().includes(lowerSearchTerm),
+      (thing.place ?? '').toLowerCase().includes(lowerSearchTerm),
+      (thing.review ?? '').toLowerCase().includes(lowerSearchTerm),
+      new Date(thing.date).toLocaleDateString().includes(lowerSearchTerm),
+      (thing.rating ? thing.rating.toString() : '').includes(lowerSearchTerm),
+    ];
 
-    const ratingMatch = thing.rating
-      ? thing.rating.toString().includes(searchTerm)
-      : false;
-
-    return (
-      nameMatch ||
-      typeMatch ||
-      placeMatch ||
-      reviewMatch ||
-      dateMatch ||
-      ratingMatch
-    );
+    return matches.some((match) => match);
   }
 
   sortByNameAsc(): void {
