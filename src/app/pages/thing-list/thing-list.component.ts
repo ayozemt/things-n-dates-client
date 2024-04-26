@@ -17,6 +17,7 @@ export class ThingListComponent implements OnInit {
   filteredThings: Thing[] = [];
   selectedYear: number | null = null;
   searchTerm: string = '';
+  loading: boolean = false;
 
   constructor(
     private thingService: ThingService,
@@ -30,6 +31,7 @@ export class ThingListComponent implements OnInit {
 
   async loadThings(): Promise<void> {
     try {
+      this.loading = true;
       this.things = await this.thingService.getThingsByUserId('userId');
       this.things.sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -42,6 +44,8 @@ export class ThingListComponent implements OnInit {
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
       });
+    } finally {
+      this.loading = false;
     }
   }
 
