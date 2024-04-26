@@ -29,6 +29,7 @@ export class AddThingComponent implements OnInit {
   };
   stars: number[] = [1, 2, 3, 4, 5];
   selectedRating: number | null = null;
+  submitting: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<AddThingComponent>,
@@ -41,6 +42,7 @@ export class AddThingComponent implements OnInit {
 
   async addThing(): Promise<void> {
     try {
+      this.submitting = false;
       this.newThing.rating = this.selectedRating;
       const createdThing = await this.thingService.createThing(this.newThing);
       this.dialogRef.close(createdThing);
@@ -49,6 +51,8 @@ export class AddThingComponent implements OnInit {
       this.snackBar.open(error.error.message || 'Error adding Thing', 'Close', {
         duration: 2000,
       });
+    } finally {
+      this.submitting = true;
     }
   }
 
