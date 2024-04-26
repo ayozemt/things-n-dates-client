@@ -81,86 +81,6 @@ export class ThingListComponent implements OnInit {
     }
   }
 
-  async openAddThingModal(): Promise<void> {
-    const dialogRef = this.dialog.open(AddThingComponent, {
-      width: '500px',
-      data: {},
-    });
-
-    dialogRef.afterClosed().subscribe(async (result) => {
-      if (result) {
-        try {
-          this.snackBar.open('Thing added succesfully', 'Close', {
-            duration: 2000,
-          });
-          await this.loadThings();
-        } catch (error) {
-          console.error('Error adding Thing:', error);
-        }
-      }
-    });
-  }
-
-  async openEditThingModal(thingId: string): Promise<void> {
-    const dialogRef = this.dialog.open(EditThingComponent, {
-      width: '500px',
-      data: { thingId: thingId },
-    });
-
-    dialogRef.afterClosed().subscribe(async (result) => {
-      if (result) {
-        try {
-          this.snackBar.open('Thing updated successfully', 'Close', {
-            duration: 2000,
-          });
-          await this.loadThings();
-        } catch (error) {
-          console.error('Error updating Thing:', error);
-        }
-      }
-    });
-  }
-
-  async confirmDeleteThing(thingId: string): Promise<void> {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '350px',
-      data: 'Are you sure you want to delete this Thing?',
-    });
-
-    dialogRef.afterClosed().subscribe(async (result) => {
-      if (result) {
-        try {
-          await this.deleteThing(thingId);
-          // await this.loadThings();
-        } catch (error) {
-          console.error('Error deleting Thing:', error);
-        }
-      }
-    });
-  }
-
-  async deleteThing(thingId: string): Promise<void> {
-    try {
-      await this.thingService.deleteThing(thingId);
-      this.things = this.things.filter((thing) => thing._id !== thingId);
-      this.applyYearFilter();
-      this.snackBar.open('Thing deleted successfully', 'Close', {
-        duration: 2000,
-      });
-    } catch (error: any) {
-      console.error('Error deleting Thing:', error);
-      this.snackBar.open(
-        error.error.message || 'Error deleting Thing',
-        'Close',
-        {
-          duration: 2000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        }
-      );
-    }
-  }
-
   async applySearchFilter(searchTerm: string | null): Promise<void> {
     this.searchTerm = searchTerm || '';
 
@@ -240,5 +160,86 @@ export class ThingListComponent implements OnInit {
     return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
       place
     )}`;
+  }
+
+  // CRUD METHODS
+
+  async openAddThingModal(): Promise<void> {
+    const dialogRef = this.dialog.open(AddThingComponent, {
+      width: '500px',
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        try {
+          this.snackBar.open('Thing added succesfully', 'Close', {
+            duration: 2000,
+          });
+          await this.loadThings();
+        } catch (error) {
+          console.error('Error adding Thing:', error);
+        }
+      }
+    });
+  }
+
+  async openEditThingModal(thingId: string): Promise<void> {
+    const dialogRef = this.dialog.open(EditThingComponent, {
+      width: '500px',
+      data: { thingId: thingId },
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        try {
+          this.snackBar.open('Thing updated successfully', 'Close', {
+            duration: 2000,
+          });
+          await this.loadThings();
+        } catch (error) {
+          console.error('Error updating Thing:', error);
+        }
+      }
+    });
+  }
+
+  async confirmDeleteThing(thingId: string): Promise<void> {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: 'Are you sure you want to delete this Thing?',
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        try {
+          await this.deleteThing(thingId);
+        } catch (error) {
+          console.error('Error deleting Thing:', error);
+        }
+      }
+    });
+  }
+
+  async deleteThing(thingId: string): Promise<void> {
+    try {
+      await this.thingService.deleteThing(thingId);
+      this.things = this.things.filter((thing) => thing._id !== thingId);
+      this.applyYearFilter();
+      this.snackBar.open('Thing deleted successfully', 'Close', {
+        duration: 2000,
+      });
+    } catch (error: any) {
+      console.error('Error deleting Thing:', error);
+      this.snackBar.open(
+        error.error.message || 'Error deleting Thing',
+        'Close',
+        {
+          duration: 2000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        }
+      );
+    }
   }
 }
