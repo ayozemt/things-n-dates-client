@@ -18,6 +18,8 @@ export class ThingListComponent implements OnInit {
   selectedYear: number | null = null;
   searchTerm: string = '';
   loading: boolean = false;
+  currentSortType: 'nameAsc' | 'nameDesc' | 'dateAsc' | 'dateDesc' | null =
+    null;
 
   constructor(
     private thingService: ThingService,
@@ -33,10 +35,15 @@ export class ThingListComponent implements OnInit {
     try {
       this.loading = true;
       this.things = await this.thingService.getThingsByUserId('userId');
-      this.things.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      );
-      this.applyYearFilter();
+      if (this.currentSortType === 'nameAsc') {
+        this.sortByNameAsc();
+      } else if (this.currentSortType === 'nameDesc') {
+        this.sortByNameDesc();
+      } else if (this.currentSortType === 'dateAsc') {
+        this.sortByDateAsc();
+      } else {
+        this.sortByDateDesc();
+      }
     } catch (error) {
       console.error('Error loading Things:', error);
       this.snackBar.open('Error loading Things', 'Close', {
@@ -202,16 +209,19 @@ export class ThingListComponent implements OnInit {
   }
 
   sortByNameAsc(): void {
+    this.currentSortType = 'nameAsc';
     this.things.sort((a, b) => a.name.localeCompare(b.name));
     this.applyYearFilter();
   }
 
   sortByNameDesc(): void {
+    this.currentSortType = 'nameDesc';
     this.things.sort((a, b) => b.name.localeCompare(a.name));
     this.applyYearFilter();
   }
 
   sortByDateAsc(): void {
+    this.currentSortType = 'dateAsc';
     this.things.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     );
@@ -219,6 +229,7 @@ export class ThingListComponent implements OnInit {
   }
 
   sortByDateDesc(): void {
+    this.currentSortType = 'dateDesc';
     this.things.sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
