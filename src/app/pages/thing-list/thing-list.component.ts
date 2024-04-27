@@ -20,6 +20,16 @@ export class ThingListComponent implements OnInit {
   loading: boolean = false;
   currentSortType: 'nameAsc' | 'nameDesc' | 'dateAsc' | 'dateDesc' | null =
     null;
+  typeIconMapping: { [key in Thing['type']]: string } = {
+    Book: 'menu_book',
+    Theater: 'theater_comedy',
+    Concert: 'music_note',
+    Film: 'local_movies',
+    Trip: 'luggage',
+    Food: 'restaurant',
+    Activity: 'rocket_launch',
+    Celebration: 'cake',
+  };
 
   constructor(
     private thingService: ThingService,

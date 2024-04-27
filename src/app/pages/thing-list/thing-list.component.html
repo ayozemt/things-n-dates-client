@@ -25,8 +25,13 @@
 </div>
 <mat-card *ngFor="let thing of filteredThings" class="thing-card">
   <mat-card-header>
-    <mat-card-title>{{ thing.name }}</mat-card-title>
-    <mat-card-subtitle>{{ thing.type }}</mat-card-subtitle>
+    <div class="type-icon">
+      <mat-icon color="accent">{{ typeIconMapping[thing.type] }}</mat-icon>
+    </div>
+    <div>
+      <mat-card-title>{{ thing.name }}</mat-card-title>
+      <mat-card-subtitle>{{ thing.type }}</mat-card-subtitle>
+    </div>
   </mat-card-header>
   <mat-card-content>
     <p><span class="label">Date:</span> {{ thing.date | date : "fullDate" }}</p>
