@@ -8,6 +8,14 @@
         <mat-icon color="accent">cruelty_free</mat-icon>
         <span>Hello, {{ userName }}!</span>
       </button>
+      <button mat-menu-item (click)="exportToJSON()">
+        <mat-icon color="accent">ios_share</mat-icon>
+        <span>Export list in JSON</span>
+      </button>
+      <button mat-menu-item (click)="exportToCSV()">
+        <mat-icon color="accent">share</mat-icon>
+        <span>Export list in CSV</span>
+      </button>
       <button mat-menu-item (click)="logout()">
         <mat-icon color="accent">logout</mat-icon>
         <span>Logout</span>

@@ -11,6 +11,7 @@ import { AuthService } from '../../auth/auth.service';
 export class ToolbarComponent {
   @Input() selectedYear: number | string = 'All';
   @Input() things: Thing[] = [];
+  @Input() filteredThings: Thing[] = [];
   @Input() userName: string | null = null;
 
   @Output() yearSelected = new EventEmitter<number | null>();
@@ -21,7 +22,8 @@ export class ToolbarComponent {
   @Output() sortByDateDesc = new EventEmitter<void>();
 
   years: (number | 'All')[] = [];
-  currentSortType: 'nameAsc' | 'nameDesc' | 'dateAsc' | 'dateDesc' | null = null;
+  currentSortType: 'nameAsc' | 'nameDesc' | 'dateAsc' | 'dateDesc' | null =
+    null;
 
   constructor(private authService: AuthService, private router: Router) {
     this.years = ['All', ...this.getUniqueYears(this.things)];
@@ -75,6 +77,45 @@ export class ToolbarComponent {
     filterType: 'nameAsc' | 'nameDesc' | 'dateAsc' | 'dateDesc'
   ): boolean {
     return this.currentSortType === filterType;
+  }
+
+  exportToJSON(): void {
+    const json = JSON.stringify(this.filteredThings);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'things.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }
+
+  exportToCSV(): void {
+    const csvHeader = [
+      '_id',
+      'Type',
+      'Name',
+      'Date',
+      'Review',
+      'Place',
+      'Rating',
+      'User',
+      'Created at',
+      'Updated at',
+    ].join(',');
+    const csvContent = `data:text/csv;charset=utf-8,${csvHeader}\n`;
+    const csvData = this.filteredThings
+      .map((thing) => Object.values(thing).join(','))
+      .join('\n');
+    const encodedURI = encodeURI(csvContent + csvData);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedURI);
+    link.setAttribute('download', 'things.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   logout(): void {
