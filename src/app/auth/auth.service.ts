@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import User from '../interfaces/User';
 import { environment } from '../../environments/environment.prod';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { environment } from '../../environments/environment.prod';
 export class AuthService {
   private baseUrl = environment.apiUrl + '/auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   verifyToken(): Observable<any> {
     const authToken = localStorage.getItem('authToken');
@@ -36,6 +37,7 @@ export class AuthService {
       catchError((_error) => {
         // Si hay un error al verificar el token, borra el token almacenado
         this.removeToken();
+        this.router.navigate(['/login']);
         return of(null);
       })
     );
