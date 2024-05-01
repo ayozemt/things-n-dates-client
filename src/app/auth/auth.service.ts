@@ -43,7 +43,8 @@ export class AuthService {
         // Si hay un error al verificar el token, borra el token almacenado
         console.error('Session expired: ', error);
         this.snackBar.open('Session expired. Log in again.', 'Close', {
-          duration: 4000,
+          duration: 5000,
+          verticalPosition: 'top',
         });
         this.removeToken();
         this.router.navigate(['/login']);
