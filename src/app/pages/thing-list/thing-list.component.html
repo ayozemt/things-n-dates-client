@@ -21,59 +21,57 @@
     {{ filteredThings.length > 0 ? "things-n-dates" : "click on + to start" }}
   </h2>
 </div>
-<div class="container">
-  <div *ngIf="loading" class="spinner-container">
-    <mat-spinner diameter="100" color="accent"></mat-spinner>
-  </div>
-  <div>
-    <mat-card *ngFor="let thing of filteredThings" class="thing-card">
-      <mat-card-header>
-        <div class="type-icon">
-          <mat-icon color="accent">{{ typeIconMapping[thing.type] }}</mat-icon>
-        </div>
-        <div>
-          <mat-card-title>{{ thing.name }}</mat-card-title>
-          <mat-card-subtitle>{{ thing.type }}</mat-card-subtitle>
-        </div>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          <span class="label">Date:</span> {{ thing.date | date : "fullDate" }}
-        </p>
-        <p *ngIf="thing.place">
-          <span class="label">Place: </span>
-          <a [href]="generateGoogleMapsURL(thing.place)" target="_blank">{{
-            thing.place
-          }}</a>
-        </p>
-        <p *ngIf="thing.review">
-          <span class="label">Review:</span> {{ thing.review }}
-        </p>
-        <div *ngIf="thing.rating" class="star-rating">
-          <mat-icon
-            class="star-icon"
-            *ngFor="let _ of [1, 2, 3, 4, 5]"
-            [ngClass]="{ filled: _ <= thing.rating }"
-            >star</mat-icon
-          >
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button
-          mat-icon-button
-          color="accent"
-          (click)="confirmDeleteThing(thing._id)"
+<div *ngIf="loading" class="spinner-container">
+  <mat-spinner diameter="100" color="accent"></mat-spinner>
+</div>
+<div>
+  <mat-card *ngFor="let thing of filteredThings" class="thing-card">
+    <mat-card-header>
+      <div class="type-icon">
+        <mat-icon color="accent">{{ typeIconMapping[thing.type] }}</mat-icon>
+      </div>
+      <div>
+        <mat-card-title>{{ thing.name }}</mat-card-title>
+        <mat-card-subtitle>{{ thing.type }}</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        <span class="label">Date:</span> {{ thing.date | date : "fullDate" }}
+      </p>
+      <p *ngIf="thing.place">
+        <span class="label">Place: </span>
+        <a [href]="generateGoogleMapsURL(thing.place)" target="_blank">{{
+          thing.place
+        }}</a>
+      </p>
+      <p *ngIf="thing.review">
+        <span class="label">Review:</span> {{ thing.review }}
+      </p>
+      <div *ngIf="thing.rating" class="star-rating">
+        <mat-icon
+          class="star-icon"
+          *ngFor="let _ of [1, 2, 3, 4, 5]"
+          [ngClass]="{ filled: _ <= thing.rating }"
+          >star</mat-icon
         >
-          <mat-icon>delete</mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          color="accent"
-          (click)="openEditThingModal(thing._id)"
-        >
-          <mat-icon>edit</mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="confirmDeleteThing(thing._id)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="openEditThingModal(thing._id)"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>
