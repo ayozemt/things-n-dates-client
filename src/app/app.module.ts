@@ -28,6 +28,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { HomeComponent } from './pages/home/home.component';
     EditThingComponent,
     ToolbarComponent,
     HomeComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
