@@ -7,8 +7,10 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { ThingListComponent } from './pages/thing-list/thing-list.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 const routes: Routes = [
+  { path: 'reset-password/:token', component: ResetPasswordComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent, canActivate: [AnonGuard] },

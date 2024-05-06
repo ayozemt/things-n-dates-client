@@ -26,12 +26,11 @@ export class ForgotPasswordComponent {
       try {
         const email = this.emailFormControl.value || '';
         await this.userService.forgotPassword(email);
-        this.snackBar.open('Email sent successfully', 'Close', {
+        this.snackBar.open('Success. Check your inbox.', 'Close', {
           duration: 3000,
           horizontalPosition: 'center',
           verticalPosition: 'top',
         });
-        this.router.navigate(['/reset-password']);
       } catch (error: any) {
         console.log('Error sending email:', error);
         this.snackBar.open('Error sending email.', 'Close', {
