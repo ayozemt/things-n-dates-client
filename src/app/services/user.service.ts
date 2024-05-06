@@ -47,6 +47,36 @@ export class UserService {
     }
   }
 
+  async forgotPassword(email: string): Promise<void> {
+    try {
+      await firstValueFrom(
+        this.http.post<void>(
+          `${this.baseUrl}/reset-password/request`,
+          { email },
+          this.httpOptions
+        )
+      );
+    } catch (error) {
+      this.handleError('forgotPassword', error);
+      throw error;
+    }
+  }
+
+  async resetPassword(token: string, newPassword: string): Promise<void> {
+    try {
+      await firstValueFrom(
+        this.http.post<void>(
+          `${this.baseUrl}/reset-password/${token}`,
+          { password: newPassword },
+          this.httpOptions
+        )
+      );
+    } catch (error) {
+      this.handleError('resetPassword', error);
+      throw error;
+    }
+  }
+
   async verifyToken(): Promise<User> {
     try {
       const verifiedUser = await firstValueFrom(
