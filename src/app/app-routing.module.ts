@@ -8,6 +8,7 @@ import { ThingListComponent } from './pages/thing-list/thing-list.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   { path: 'reset-password/:token', component: ResetPasswordComponent },
@@ -17,6 +18,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent, canActivate: [AnonGuard] },
   { path: 'list', component: ThingListComponent, canActivate: [AuthGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404' },
 ];
 
 @NgModule({
