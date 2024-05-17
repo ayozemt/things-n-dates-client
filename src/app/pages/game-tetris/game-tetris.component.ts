@@ -229,6 +229,12 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     this.drawBoard();
   }
 
+  preventZoom(event: TouchEvent) {
+    if (event.touches.length > 1) {
+      event.preventDefault();
+    }
+  }
+
   gameLoop() {
     if (!this.movePiece(0, 1)) {
       this.placePiece();
