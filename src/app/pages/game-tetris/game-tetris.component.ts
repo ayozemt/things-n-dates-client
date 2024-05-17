@@ -66,6 +66,10 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
       { passive: false }
     );
 
+    document.addEventListener('touchmove', function (e) {
+      e.preventDefault();
+    });
+
     this.authService.verifyToken().subscribe((user: any) => {
       this.userName = user.name;
       this.userId = user._id;
