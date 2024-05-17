@@ -9,7 +9,6 @@ import {
 import { AuthService } from '../../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { fromEvent, interval, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game-tetris',
@@ -54,6 +53,17 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     this.gameLoopSubscription = interval(1000).subscribe(() => this.gameLoop());
     fromEvent<KeyboardEvent>(document, 'keydown').subscribe((event) =>
       this.handleKey(event)
+    );
+
+    // Disable double-tap zoom
+    document.addEventListener(
+      'touchstart',
+      function (event) {
+        if (event.touches.length > 1) {
+          event.preventDefault();
+        }
+      },
+      { passive: false }
     );
 
     this.authService.verifyToken().subscribe((user: any) => {
