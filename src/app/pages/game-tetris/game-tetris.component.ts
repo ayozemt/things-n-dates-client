@@ -35,15 +35,15 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
 
   pieces = [
     [1, 1, 1, 1], // I
-    [1, 1, 1, 0, 1], // T
-    [1, 1, 0, 0, 1, 1], // S
-    [0, 1, 1, 1, 1], // Z
-    [1, 1, 1, 0, 0, 1], // L
-    [1, 1, 1, 0, 1], // J
-    [1, 1, 0, 1, 1], // O
+    [1, 1, 1, 0, 1], // L
+    [1, 1, 0, 0, 1, 1], // O
+    [1, 1, 0, 0, 0, 1, 1], // Z
+    [1, 1, 1, 0, 0, 1], // T
+    [1, 0, 0, 0, 1, 1, 1], // J
+    [0, 1, 1, 0, 1, 1], // S
   ];
 
-  colors = ['cyan', 'purple', 'green', 'red', 'orange', 'blue', 'yellow'];
+  colors = ['cyan', 'orange', 'yellow', 'red', 'purple', 'blue', 'green'];
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 
