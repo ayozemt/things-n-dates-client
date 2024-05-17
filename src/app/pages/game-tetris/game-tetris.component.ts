@@ -111,6 +111,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
 
   drawPiece(piece: any) {
     this.context.fillStyle = piece.color;
+    this.context.strokeStyle = 'pink';
     for (let i = 0; i < piece.shape.length; i++) {
       if (piece.shape[i]) {
         const x = piece.x + (i % 4);
