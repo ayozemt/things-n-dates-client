@@ -1,0 +1,40 @@
+h2 {
+  color: #e91e63;
+  text-align: center;
+}
+
+.tetris-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+canvas {
+  border: 2px solid white;
+}
+
+.score {
+  margin-top: 10px;
+  font-size: 20px;
+  color: white;
+}
+
+.controls {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.direction {
+  text-align: center;
+}
+
+.left {
+  margin-right: 30px;
+}
+
+button {
+  cursor: pointer;
+}

@@ -9,6 +9,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { GameTetrisComponent } from './pages/game-tetris/game-tetris.component';
 
 const routes: Routes = [
   { path: 'reset-password/:token', component: ResetPasswordComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AnonGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [AnonGuard] },
   { path: 'list', component: ThingListComponent, canActivate: [AuthGuard] },
+  { path: 'tetris', component: GameTetrisComponent, canActivate: [AuthGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404' },

@@ -31,6 +31,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { GameTetrisComponent } from './pages/game-tetris/game-tetris.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     NotFoundComponent,
+    GameTetrisComponent,
   ],
   imports: [
     BrowserModule,
