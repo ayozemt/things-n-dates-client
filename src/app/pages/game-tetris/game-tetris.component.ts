@@ -23,9 +23,9 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   context!: CanvasRenderingContext2D;
 
   boardWidth = 300;
-  boardHeight = 600;
+  boardHeight = 510;
   columns = 10;
-  rows = 20;
+  rows = 17;
   blockSize = this.boardWidth / this.columns;
   board: number[][] = [];
   score: number = 0;
@@ -35,7 +35,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   pieces = [
     [1, 1, 1, 1], // I
     [1, 1, 1, 0, 1], // L
-    [1, 1, 0, 0, 1, 1], // O
+    [0, 1, 1, 0, 0, 1, 1], // O
     [1, 1, 0, 0, 0, 1, 1], // Z
     [1, 1, 1, 0, 0, 1], // T
     [1, 0, 0, 0, 1, 1, 1], // J
@@ -77,7 +77,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     const id = Math.floor(Math.random() * this.pieces.length);
     const piece = this.pieces[id];
     this.currentPiece = {
-      x: Math.floor(this.columns / 2) - Math.floor(piece.length / 2),
+      x: 3,
       y: 0,
       shape: piece,
       color: this.colors[id],
