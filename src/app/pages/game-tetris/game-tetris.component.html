@@ -6,21 +6,42 @@
   <div class="controls">
     <div class="direction">
       <div>
-        <button mat-fab color="accent" (click)="moveLeft()" class="left">
+        <button
+          mat-fab
+          color="accent"
+          (click)="moveLeft()"
+          class="left"
+          (touchstart)="preventZoom($event)"
+        >
           <mat-icon>arrow_circle_left</mat-icon>
         </button>
-        <button mat-fab color="accent" (click)="moveRight()">
+        <button
+          mat-fab
+          color="accent"
+          (click)="moveRight()"
+          (touchstart)="preventZoom($event)"
+        >
           <mat-icon>arrow_circle_right</mat-icon>
         </button>
       </div>
       <div>
-        <button mat-fab color="accent" (click)="moveDown()">
+        <button
+          mat-fab
+          color="accent"
+          (click)="moveDown()"
+          (touchstart)="preventZoom($event)"
+        >
           <mat-icon>arrow_circle_down</mat-icon>
         </button>
       </div>
     </div>
     <div>
-      <button mat-fab color="accent" (click)="rotate()">
+      <button
+        mat-fab
+        color="accent"
+        (click)="rotate()"
+        (touchstart)="preventZoom($event)"
+      >
         <mat-icon>rotate_right</mat-icon>
       </button>
     </div>
