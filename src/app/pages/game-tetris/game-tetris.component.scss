@@ -37,4 +37,6 @@ canvas {
 
 button {
   cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
 }
