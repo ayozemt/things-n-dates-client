@@ -78,7 +78,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     const piece = this.pieces[id];
     this.currentPiece = {
       x: 3,
-      y: 0,
+      y: -1,
       shape: piece,
       color: this.colors[id],
     };
