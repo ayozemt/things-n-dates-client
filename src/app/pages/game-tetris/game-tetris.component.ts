@@ -55,25 +55,6 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
       this.handleKey(event)
     );
 
-    // Disable double-tap zoom
-    document.addEventListener(
-      'touchstart',
-      function (event) {
-        if (event.touches.length > 1) {
-          event.preventDefault();
-        }
-      },
-      { passive: false }
-    );
-
-    document.addEventListener(
-      'touchmove',
-      function (e) {
-        e.preventDefault();
-      },
-      { passive: false }
-    );
-
     this.authService.verifyToken().subscribe((user: any) => {
       this.userName = user.name;
       this.userId = user._id;
@@ -245,12 +226,6 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   rotate() {
     this.rotatePiece();
     this.drawBoard();
-  }
-
-  preventZoom(event: TouchEvent) {
-    if (event.touches.length > 1) {
-      event.preventDefault();
-    }
   }
 
   gameLoop() {
