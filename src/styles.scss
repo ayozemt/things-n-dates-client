@@ -5,3 +5,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: lightpink;
 }
+
+html,
+body {
+  touch-action: manipulation;
+}
