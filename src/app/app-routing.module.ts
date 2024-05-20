@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AnonGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [AnonGuard] },
   { path: 'list', component: ThingListComponent, canActivate: [AuthGuard] },
-  { path: 'tetris', component: GameTetrisComponent, canActivate: [AuthGuard] },
+  { path: 'tetris', component: GameTetrisComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404' },
