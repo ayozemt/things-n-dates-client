@@ -4,9 +4,7 @@ import {
   ElementRef,
   OnInit,
   OnDestroy,
-  Input,
 } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { fromEvent, interval, Subscription } from 'rxjs';
 
@@ -16,9 +14,6 @@ import { fromEvent, interval, Subscription } from 'rxjs';
   styleUrls: ['./game-tetris.component.scss'],
 })
 export class GameTetrisComponent implements OnInit, OnDestroy {
-  @Input() userName: string | null = null;
-  @Input() userId: string | null = null;
-
   @ViewChild('board', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
   context!: CanvasRenderingContext2D;
 
@@ -44,7 +39,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
 
   colors = ['cyan', 'orange', 'yellow', 'red', 'purple', 'blue', 'green'];
 
-  constructor(private authService: AuthService, private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.context = this.canvas.nativeElement.getContext('2d')!;
@@ -54,11 +49,6 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     fromEvent<KeyboardEvent>(document, 'keydown').subscribe((event) =>
       this.handleKey(event)
     );
-
-    this.authService.verifyToken().subscribe((user: any) => {
-      this.userName = user.name;
-      this.userId = user._id;
-    });
   }
 
   ngOnDestroy() {
@@ -271,20 +261,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
 
   gameOver() {
     alert('Game Over');
-    this.saveScore();
     this.initBoard();
     this.score = 0;
-  }
-
-  saveScore() {
-    if (this.userId) {
-      const scoreData = {
-        userId: this.userId,
-        score: this.score,
-      };
-      this.http.post('/api/tetris/score', scoreData).subscribe((response) => {
-        console.log('Score saved', response);
-      });
-    }
   }
 }
