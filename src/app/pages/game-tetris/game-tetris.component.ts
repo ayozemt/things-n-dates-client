@@ -7,6 +7,11 @@ import {
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { fromEvent, interval, Subscription } from 'rxjs';
+import { TetrisScoreService } from '../../services/tetris-score.service';
+import TetrisScore from '../../interfaces/Tetris-Score';
+import { TetrisScoresComponent } from '../../components/tetris-scores/tetris-scores.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-game-tetris',
@@ -14,6 +19,10 @@ import { fromEvent, interval, Subscription } from 'rxjs';
   styleUrls: ['./game-tetris.component.scss'],
 })
 export class GameTetrisComponent implements OnInit, OnDestroy {
+  userName: string = '';
+  isGameOver: boolean = false;
+  isModalOpen: boolean = false;
+
   @ViewChild('board', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
   context!: CanvasRenderingContext2D;
 
@@ -24,6 +33,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   blockSize = this.boardWidth / this.columns;
   board: number[][] = [];
   score: number = 0;
+  highScore: number = 0;
   currentPiece: any;
   gameLoopSubscription!: Subscription;
 
@@ -39,13 +49,16 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
 
   colors = ['cyan', 'orange', 'yellow', 'red', 'purple', 'blue', 'green'];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private tetrisScoreService: TetrisScoreService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.context = this.canvas.nativeElement.getContext('2d')!;
     this.initBoard();
-    this.newPiece();
-    this.gameLoopSubscription = interval(1000).subscribe(() => this.gameLoop());
+    this.openStartModal();
     fromEvent<KeyboardEvent>(document, 'keydown').subscribe((event) =>
       this.handleKey(event)
     );
@@ -55,6 +68,52 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     if (this.gameLoopSubscription) {
       this.gameLoopSubscription.unsubscribe();
     }
+  }
+
+  async openStartModal() {
+    this.isModalOpen = true;
+    const dialogRef = this.dialog.open(TetrisScoresComponent, {
+      width: '400px',
+      data: { userName: this.userName },
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        this.userName = result;
+        this.updateTitle();
+        await this.loadHighScore();
+        this.isGameOver = false;
+        this.resetGame();
+      }
+      this.isModalOpen = false;
+    });
+  }
+
+  resetGame() {
+    this.score = 0;
+    this.initBoard();
+    if (this.isGameOver) {
+      return;
+    }
+    this.startGame();
+  }
+
+  updateTitle() {
+    document.title = `Welcome to Tetris, ${this.userName}!!`;
+  }
+
+  async loadHighScore() {
+    const scores = await this.tetrisScoreService.getAllTetrisScores();
+    this.highScore = scores.length > 0 ? scores[0].score : 0;
+  }
+
+  startGame() {
+    this.newPiece();
+    if (this.gameLoopSubscription) {
+      this.gameLoopSubscription.unsubscribe();
+    }
+    this.gameLoopSubscription = interval(1000).subscribe(() => this.gameLoop());
   }
 
   initBoard() {
@@ -219,6 +278,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   }
 
   gameLoop() {
+    if (this.isGameOver) return;
     if (!this.movePiece(0, 1)) {
       this.placePiece();
       this.clearLines();
@@ -259,9 +319,28 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     this.score += linesCleared * 10;
   }
 
-  gameOver() {
-    alert('Game Over');
-    this.initBoard();
-    this.score = 0;
+  async gameOver() {
+    if (this.isGameOver || this.isModalOpen) {
+      return;
+    }
+    this.isGameOver = true;
+    if (this.gameLoopSubscription) {
+      this.gameLoopSubscription.unsubscribe();
+    }
+    await this.saveScore();
+    this.openStartModal();
+  }
+
+  async saveScore() {
+    if (this.userName) {
+      const newScore: TetrisScore = {
+        _id: '',
+        userName: this.userName,
+        score: this.score,
+        date: new Date(),
+      };
+      await this.tetrisScoreService.createTetrisScore(newScore);
+      this.snackBar.open('Score saved!', 'Close', { duration: 3000 });
+    }
   }
 }

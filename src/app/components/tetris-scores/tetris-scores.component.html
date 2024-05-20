@@ -1,0 +1,31 @@
+<div class="container">
+  <mat-card class="card-container">
+    <mat-card-content class="column-container">
+      <h2>Game Over</h2>
+      <div>
+        <h3>Top 10 Scores:</h3>
+        <ol>
+          <li *ngFor="let score of topScores">
+            <span class="user-name"
+              >{{ score.userName }}....................</span
+            >
+            <span class="score">{{ score.score }}</span>
+            <span class="date">{{ score.date | date : "d/M/yy" }}</span>
+          </li>
+        </ol>
+      </div>
+
+      <div>
+        <mat-form-field color="accent">
+          <mat-label>Enter your name</mat-label>
+          <input matInput [(ngModel)]="userName" required maxlength="10" />
+        </mat-form-field>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" (click)="onPlay()">
+            START GAME
+          </button>
+        </mat-card-actions>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
