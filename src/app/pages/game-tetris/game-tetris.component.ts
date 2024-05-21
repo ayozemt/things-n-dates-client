@@ -27,9 +27,9 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   context!: CanvasRenderingContext2D;
 
   boardWidth = 300;
-  boardHeight = 510;
+  boardHeight = 540;
   columns = 10;
-  rows = 17;
+  rows = 18;
   blockSize = this.boardWidth / this.columns;
   board: number[][] = [];
   score: number = 0;
