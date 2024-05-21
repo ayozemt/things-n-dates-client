@@ -17,31 +17,45 @@
 
 h2 {
   color: #e91e63;
+  font-family: monospace;
 }
 
 h3 {
   color: grey;
+  font-family: monospace;
 }
 
-ol {
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-family: monospace;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
   color: grey;
 }
 
-.user-name {
-  flex: 1;
-}
-
-.score {
-  color: #e91e63;
-  font-size: 20px;
-  flex: 1;
+td.ranking-number {
   text-align: right;
 }
 
-.date {
+td.user-name {
+  text-align: left;
+}
+
+td.score {
+  color: #e91e63;
+  font-size: 20px;
+  text-align: right;
+}
+
+td.date {
   color: grey;
   font-size: 8px;
-  flex: 1;
   text-align: right;
 }
 
