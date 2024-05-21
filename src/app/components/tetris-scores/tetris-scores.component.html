@@ -19,6 +19,9 @@
         <mat-form-field color="accent">
           <mat-label>Enter your name</mat-label>
           <input matInput [(ngModel)]="userName" required maxlength="10" />
+          <mat-error *ngIf="userName.length > 10">
+            Name cannot be longer than 10 characters
+          </mat-error>
         </mat-form-field>
         <mat-card-actions>
           <button mat-raised-button color="accent" (click)="onPlay()">
