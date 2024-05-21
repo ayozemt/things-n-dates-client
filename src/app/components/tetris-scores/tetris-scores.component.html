@@ -4,16 +4,18 @@
       <h2>Tet&#x1D19;is - Game Over</h2>
       <div>
         <h3>Top 10 Scores:</h3>
-        <table>
-          <tbody>
-            <tr *ngFor="let score of topScores; let i = index">
-              <td class="ranking-number">{{ i + 1 }}</td>
-              <td class="user-name">{{ score.userName }}</td>
-              <td class="score">{{ score.score }}</td>
-              <td class="date">{{ score.date | date : "d/M/yy" }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-container">
+          <table>
+            <tbody>
+              <tr *ngFor="let score of topScores; let i = index">
+                <td class="ranking-number">{{ i + 1 }}</td>
+                <td class="user-name">{{ score.userName }}</td>
+                <td class="score">{{ score.score }}</td>
+                <td class="date">{{ score.date | date : "d/M/yy" }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div>
         <mat-form-field color="accent">

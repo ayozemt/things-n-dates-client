@@ -25,6 +25,12 @@ h3 {
   color: grey;
   font-family: monospace;
   font-variant-numeric: slashed-zero;
+  margin-left: 15px;
+}
+
+.table-container {
+  max-height: 170px;
+  overflow-y: auto;
 }
 
 table {
@@ -63,8 +69,8 @@ td.date {
 }
 
 mat-form-field {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 
 mat-card-actions {
