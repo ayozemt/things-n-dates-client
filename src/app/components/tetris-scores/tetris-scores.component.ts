@@ -25,7 +25,7 @@ export class TetrisScoresComponent implements OnInit {
   }
 
   onPlay() {
-    if (this.userName.trim() !== '') {
+    if (this.userName.trim() !== '' && this.userName.length <= 10) {
       this.dialogRef.close(this.userName);
     }
   }
