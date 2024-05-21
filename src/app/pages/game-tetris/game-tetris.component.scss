@@ -1,6 +1,7 @@
 h2 {
   color: #e91e63;
   text-align: center;
+  font-family: monospace;
 }
 
 .tetris-container {
@@ -16,8 +17,9 @@ canvas {
 
 .score {
   margin-top: 10px;
-  font-size: 20px;
+  font-size: 18px;
   color: white;
+  font-family: monospace;
 }
 
 .controls {
