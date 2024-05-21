@@ -18,11 +18,13 @@
 h2 {
   color: #e91e63;
   font-family: monospace;
+  font-variant-numeric: slashed-zero;
 }
 
 h3 {
   color: grey;
   font-family: monospace;
+  font-variant-numeric: slashed-zero;
 }
 
 table {
@@ -30,6 +32,7 @@ table {
   border-collapse: collapse;
   margin-bottom: 20px;
   font-family: monospace;
+  font-variant-numeric: slashed-zero;
 }
 
 th,

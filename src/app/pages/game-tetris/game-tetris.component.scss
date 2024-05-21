@@ -2,6 +2,7 @@ h2 {
   color: #e91e63;
   text-align: center;
   font-family: monospace;
+  font-variant-numeric: slashed-zero;
 }
 
 .tetris-container {
@@ -20,6 +21,7 @@ canvas {
   font-size: 18px;
   color: white;
   font-family: monospace;
+  font-variant-numeric: slashed-zero;
 }
 
 .controls {
