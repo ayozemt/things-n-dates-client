@@ -11,6 +11,7 @@ import TetrisScore from '../../interfaces/Tetris-Score';
 export class TetrisScoresComponent implements OnInit {
   userName: string = '';
   topScores: TetrisScore[] = [];
+  loading: boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<TetrisScoresComponent>,
@@ -21,7 +22,14 @@ export class TetrisScoresComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.topScores = await this.tetrisScoreService.getAllTetrisScores();
+    try {
+      this.loading = true;
+      this.topScores = await this.tetrisScoreService.getAllTetrisScores();
+    } catch (error) {
+      console.error('Error loading high scores:', error);
+    } finally {
+      this.loading = false;
+    }
   }
 
   onPlay() {
