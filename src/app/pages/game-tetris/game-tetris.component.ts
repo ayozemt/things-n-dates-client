@@ -5,7 +5,6 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { fromEvent, interval, Subscription } from 'rxjs';
 import { TetrisScoreService } from '../../services/tetris-score.service';
 import TetrisScore from '../../interfaces/Tetris-Score';
@@ -22,6 +21,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   userName: string = '';
   isGameOver: boolean = false;
   isModalOpen: boolean = false;
+  isPaused: boolean = false;
 
   @ViewChild('board', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
   context!: CanvasRenderingContext2D;
@@ -61,6 +61,12 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     this.openStartModal();
     fromEvent<KeyboardEvent>(document, 'keydown').subscribe((event) =>
       this.handleKey(event)
+    );
+    fromEvent<MouseEvent>(this.canvas.nativeElement, 'click').subscribe(() =>
+      this.togglePause()
+    );
+    fromEvent<TouchEvent>(this.canvas.nativeElement, 'touchstart').subscribe(
+      () => this.togglePause()
     );
   }
 
@@ -226,6 +232,12 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   }
 
   handleKey(event: KeyboardEvent) {
+    if (event.key === 'p' || event.key === 'P') {
+      this.togglePause();
+    }
+    if (this.isPaused) {
+      return;
+    }
     switch (event.key) {
       case 'ArrowLeft':
         this.movePiece(-1, 0);
@@ -251,16 +263,19 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   }
 
   moveLeft() {
+    if (this.isPaused) return;
     this.movePiece(-1, 0);
     this.drawBoard();
   }
 
   moveRight() {
+    if (this.isPaused) return;
     this.movePiece(1, 0);
     this.drawBoard();
   }
 
   moveDown() {
+    if (this.isPaused) return;
     if (!this.movePiece(0, 1)) {
       this.placePiece();
       this.clearLines();
@@ -273,12 +288,13 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   }
 
   rotate() {
+    if (this.isPaused) return;
     this.rotatePiece();
     this.drawBoard();
   }
 
   gameLoop() {
-    if (this.isGameOver) return;
+    if (this.isPaused || this.isGameOver) return;
     if (!this.movePiece(0, 1)) {
       this.placePiece();
       this.clearLines();
@@ -342,5 +358,32 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
       await this.tetrisScoreService.createTetrisScore(newScore);
       this.snackBar.open('Score saved!', 'Close', { duration: 3000 });
     }
+  }
+
+  togglePause() {
+    this.isPaused = !this.isPaused;
+    if (this.isPaused) {
+      this.drawPausedMessage();
+    } else {
+      this.drawBoard();
+    }
+  }
+
+  drawPausedMessage() {
+    const lines = ['Game paused.', 'Touch here or press P', 'to resume'];
+    const lineHeight = 25;
+
+    this.context.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    this.context.fillRect(0, 0, this.boardWidth, this.boardHeight);
+    this.context.fillStyle = 'white';
+    this.context.font = '20px Arial';
+    this.context.textAlign = 'center';
+    lines.forEach((line, index) => {
+      this.context.fillText(
+        line,
+        this.boardWidth / 2,
+        this.boardHeight / 2 + index * lineHeight
+      );
+    });
   }
 }
