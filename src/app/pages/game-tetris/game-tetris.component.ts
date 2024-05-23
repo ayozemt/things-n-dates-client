@@ -62,9 +62,9 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     fromEvent<KeyboardEvent>(document, 'keydown').subscribe((event) =>
       this.handleKey(event)
     );
-    fromEvent<MouseEvent>(this.canvas.nativeElement, 'click').subscribe(() =>
-      this.togglePause()
-    );
+    // fromEvent<MouseEvent>(this.canvas.nativeElement, 'click').subscribe(() =>
+    //   this.togglePause()
+    // );
     fromEvent<TouchEvent>(this.canvas.nativeElement, 'touchstart').subscribe(
       () => this.togglePause()
     );
