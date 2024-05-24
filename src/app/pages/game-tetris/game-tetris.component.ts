@@ -277,18 +277,18 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     this.drawBoard();
   }
 
-  // moveDown() {
-  //   if (this.isPaused) return;
-  //   if (!this.movePiece(0, 1)) {
-  //     this.placePiece();
-  //     this.clearLines();
-  //     this.newPiece();
-  //     if (this.collides()) {
-  //       this.gameOver();
-  //     }
-  //   }
-  //   this.drawBoard();
-  // }
+  moveDown() {
+    if (this.isPaused) return;
+    if (!this.movePiece(0, 1)) {
+      this.placePiece();
+      this.clearLines();
+      this.newPiece();
+      if (this.collides()) {
+        this.gameOver();
+      }
+    }
+    this.drawBoard();
+  }
 
   startMovingDown() {
     if (this.isPaused) return;
