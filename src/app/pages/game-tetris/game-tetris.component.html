@@ -2,7 +2,6 @@
 <div class="tetris-container">
   <div class="score">Score: {{ score }} | High Score: {{ highScore }}</div>
   <canvas #board width="300" height="540"></canvas>
-
   <div class="controls">
     <div class="direction">
       <div>
@@ -14,7 +13,12 @@
         </button>
       </div>
       <div>
-        <button mat-fab color="accent" (click)="moveDown()">
+        <button
+          mat-fab
+          color="accent"
+          (mousedown)="startMovingDown()"
+          (mouseup)="stopMovingDown()"
+        >
           <mat-icon>arrow_circle_down</mat-icon>
         </button>
       </div>
