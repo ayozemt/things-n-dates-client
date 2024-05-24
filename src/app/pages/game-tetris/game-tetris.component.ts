@@ -277,22 +277,36 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     this.drawBoard();
   }
 
-  moveDown() {
-    if (this.isPaused) return;
-    if (!this.movePiece(0, 1)) {
-      this.placePiece();
-      this.clearLines();
-      this.newPiece();
-      if (this.collides()) {
-        this.gameOver();
-      }
-    }
-    this.drawBoard();
-  }
+  // moveDown() {
+  //   if (this.isPaused) return;
+  //   if (!this.movePiece(0, 1)) {
+  //     this.placePiece();
+  //     this.clearLines();
+  //     this.newPiece();
+  //     if (this.collides()) {
+  //       this.gameOver();
+  //     }
+  //   }
+  //   this.drawBoard();
+  // }
 
   startMovingDown() {
-    this.moveDown();
-    this.moveDownInterval = interval(100).subscribe(() => this.moveDown());
+    if (this.isPaused) return;
+    if (this.moveDownInterval) {
+      this.moveDownInterval.unsubscribe();
+    }
+    this.moveDownInterval = interval(100).subscribe(() => {
+      if (!this.movePiece(0, 1)) {
+        this.placePiece();
+        this.clearLines();
+        this.newPiece();
+        if (this.collides()) {
+          this.gameOver();
+        }
+        this.stopMovingDown();
+      }
+      this.drawBoard();
+    });
   }
 
   stopMovingDown() {
@@ -356,6 +370,9 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     this.isGameOver = true;
     if (this.gameLoopSubscription) {
       this.gameLoopSubscription.unsubscribe();
+    }
+    if (this.moveDownInterval) {
+      this.moveDownInterval.unsubscribe();
     }
     await this.saveScore();
     this.openStartModal();
