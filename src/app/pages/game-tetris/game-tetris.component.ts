@@ -36,6 +36,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   highScore: number = 0;
   currentPiece: any;
   gameLoopSubscription!: Subscription;
+  moveDownInterval!: Subscription;
 
   pieces = [
     [1, 1, 1, 1], // I
@@ -62,9 +63,6 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     fromEvent<KeyboardEvent>(document, 'keydown').subscribe((event) =>
       this.handleKey(event)
     );
-    // fromEvent<MouseEvent>(this.canvas.nativeElement, 'click').subscribe(() =>
-    //   this.togglePause()
-    // );
     fromEvent<TouchEvent>(this.canvas.nativeElement, 'touchstart').subscribe(
       () => this.togglePause()
     );
@@ -73,6 +71,9 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.gameLoopSubscription) {
       this.gameLoopSubscription.unsubscribe();
+    }
+    if (this.moveDownInterval) {
+      this.moveDownInterval.unsubscribe();
     }
   }
 
@@ -287,6 +288,17 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
       }
     }
     this.drawBoard();
+  }
+
+  startMovingDown() {
+    this.moveDown();
+    this.moveDownInterval = interval(100).subscribe(() => this.moveDown());
+  }
+
+  stopMovingDown() {
+    if (this.moveDownInterval) {
+      this.moveDownInterval.unsubscribe();
+    }
   }
 
   rotate() {
