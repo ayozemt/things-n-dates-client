@@ -246,6 +246,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
         this.movePiece(1, 0);
         break;
       case 'ArrowDown':
+        event.preventDefault();
         if (!this.movePiece(0, 1)) {
           this.placePiece();
           this.clearLines();
@@ -256,6 +257,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
         }
         break;
       case 'ArrowUp':
+        event.preventDefault();
         this.rotatePiece();
         break;
     }
