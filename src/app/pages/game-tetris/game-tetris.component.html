@@ -5,10 +5,23 @@
   <div class="controls">
     <div class="direction">
       <div>
-        <button mat-fab color="accent" (click)="moveLeft()" class="left">
+        <button
+          mat-fab
+          color="accent"
+          (click)="moveLeft()"
+          (touchstart)="startMovingLeft()"
+          (touchend)="stopMovingLeft()"
+          class="left"
+        >
           <mat-icon>arrow_circle_left</mat-icon>
         </button>
-        <button mat-fab color="accent" (click)="moveRight()">
+        <button
+          mat-fab
+          color="accent"
+          (click)="moveRight()"
+          (touchstart)="startMovingRight()"
+          (touchend)="stopMovingRight()"
+        >
           <mat-icon>arrow_circle_right</mat-icon>
         </button>
       </div>
