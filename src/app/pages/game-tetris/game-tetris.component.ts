@@ -48,7 +48,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     [0, 1, 1, 0, 1, 1], // S
   ];
 
-  colors = ['cyan', 'orange', 'yellow', 'red', 'purple', 'blue', 'green'];
+  colors = ['deepskyblue', 'darkorange', 'gold', 'crimson', 'mediumpurple', 'mediumblue', 'forestgreen'];
 
   constructor(
     private tetrisScoreService: TetrisScoreService,
