@@ -37,6 +37,8 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   currentPiece: any;
   gameLoopSubscription!: Subscription;
   moveDownInterval!: Subscription;
+  moveLeftInterval!: Subscription;
+  moveRightInterval!: Subscription;
 
   pieces = [
     [1, 1, 1, 1], // I
@@ -48,7 +50,15 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     [0, 1, 1, 0, 1, 1], // S
   ];
 
-  colors = ['deepskyblue', 'darkorange', 'gold', 'crimson', 'mediumpurple', 'mediumblue', 'forestgreen'];
+  colors = [
+    'deepskyblue',
+    'darkorange',
+    'gold',
+    'crimson',
+    'mediumpurple',
+    'mediumblue',
+    'forestgreen',
+  ];
 
   constructor(
     private tetrisScoreService: TetrisScoreService,
@@ -74,6 +84,12 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     }
     if (this.moveDownInterval) {
       this.moveDownInterval.unsubscribe();
+    }
+    if (this.moveLeftInterval) {
+      this.moveLeftInterval.unsubscribe();
+    }
+    if (this.moveRightInterval) {
+      this.moveRightInterval.unsubscribe();
     }
   }
 
@@ -271,10 +287,44 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     this.drawBoard();
   }
 
+  startMovingLeft() {
+    if (this.isPaused) return;
+    if (this.moveLeftInterval) {
+      this.moveLeftInterval.unsubscribe();
+    }
+    this.moveLeftInterval = interval(100).subscribe(() => {
+      this.movePiece(-1, 0);
+      this.drawBoard();
+    });
+  }
+
+  stopMovingLeft() {
+    if (this.moveLeftInterval) {
+      this.moveLeftInterval.unsubscribe();
+    }
+  }
+
   moveRight() {
     if (this.isPaused) return;
     this.movePiece(1, 0);
     this.drawBoard();
+  }
+
+  startMovingRight() {
+    if (this.isPaused) return;
+    if (this.moveRightInterval) {
+      this.moveRightInterval.unsubscribe();
+    }
+    this.moveRightInterval = interval(100).subscribe(() => {
+      this.movePiece(1, 0);
+      this.drawBoard();
+    });
+  }
+
+  stopMovingRight() {
+    if (this.moveRightInterval) {
+      this.moveRightInterval.unsubscribe();
+    }
   }
 
   moveDown() {
