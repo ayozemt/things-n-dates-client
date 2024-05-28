@@ -23,6 +23,11 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   isModalOpen: boolean = false;
   isPaused: boolean = false;
 
+  speed: number = 1000;
+  speedUpThreshold: number = 200;
+  showMessage: boolean = false;
+  messageTimeout: any;
+
   @ViewChild('board', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
   context!: CanvasRenderingContext2D;
 
@@ -133,10 +138,16 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
 
   startGame() {
     this.newPiece();
+    this.setGameLoop();
+  }
+
+  setGameLoop() {
     if (this.gameLoopSubscription) {
       this.gameLoopSubscription.unsubscribe();
     }
-    this.gameLoopSubscription = interval(1000).subscribe(() => this.gameLoop());
+    this.gameLoopSubscription = interval(this.speed).subscribe(() =>
+      this.gameLoop()
+    );
   }
 
   initBoard() {
@@ -178,6 +189,17 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
       }
     }
     this.drawPiece(this.currentPiece);
+
+    if (this.showMessage) {
+      this.drawFasterMessage();
+    }
+  }
+
+  drawFasterMessage() {
+    this.context.fillStyle = 'white';
+    this.context.font = '30px Arial';
+    this.context.textAlign = 'center';
+    this.context.fillText('Fasteя!', this.boardWidth / 2, this.boardHeight / 2);
   }
 
   drawPiece(piece: any) {
@@ -381,7 +403,25 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
         this.gameOver();
       }
     }
+
+    if (this.score >= this.speedUpThreshold) {
+      this.speedUp();
+      this.speedUpThreshold += 200; // Actualizar el umbral para el próximo incremento
+    }
+
     this.drawBoard();
+  }
+
+  speedUp() {
+    this.speed = Math.max(100, this.speed - 100); // Reducir el intervalo, mínimo 100 ms
+    this.setGameLoop();
+    this.showMessage = true;
+
+    clearTimeout(this.messageTimeout);
+    this.messageTimeout = setTimeout(() => {
+      this.showMessage = false;
+      this.drawBoard();
+    }, 2000);
   }
 
   placePiece() {
