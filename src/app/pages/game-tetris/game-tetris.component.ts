@@ -188,8 +188,9 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
         }
       }
     }
-    this.drawPiece(this.currentPiece);
-
+    if (this.currentPiece) {
+      this.drawPiece(this.currentPiece);
+    }
     if (this.showMessage) {
       this.drawFasterMessage();
     }
