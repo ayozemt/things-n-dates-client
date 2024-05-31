@@ -65,6 +65,8 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     'forestgreen',
   ];
 
+  private tetrisThemeAudio = new Audio('assets/tetris-theme.mp3');
+
   constructor(
     private tetrisScoreService: TetrisScoreService,
     private dialog: MatDialog,
@@ -137,6 +139,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   }
 
   startGame() {
+    this.tetrisThemeAudio.play();
     this.newPiece();
     this.setGameLoop();
   }
@@ -459,6 +462,8 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
       return;
     }
     this.isGameOver = true;
+    this.tetrisThemeAudio.pause();
+    this.tetrisThemeAudio.currentTime = 0;
     if (this.gameLoopSubscription) {
       this.gameLoopSubscription.unsubscribe();
     }
@@ -486,8 +491,10 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     this.isPaused = !this.isPaused;
     if (this.isPaused) {
       this.drawPausedMessage();
+      this.tetrisThemeAudio.pause();
     } else {
       this.drawBoard();
+      this.tetrisThemeAudio.play();
     }
   }
 
