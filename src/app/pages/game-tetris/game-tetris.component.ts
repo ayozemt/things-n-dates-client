@@ -66,6 +66,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   ];
 
   private tetrisThemeAudio = new Audio('assets/tetris-theme.mp3');
+  private clearLineAudio = new Audio('assets/clear-line.mp3');
 
   constructor(
     private tetrisScoreService: TetrisScoreService,
@@ -447,6 +448,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     this.board = this.board.filter((row) => {
       if (row.every((cell) => cell !== 0)) {
         linesCleared++;
+        this.clearLineAudio.play();
         return false;
       }
       return true;
