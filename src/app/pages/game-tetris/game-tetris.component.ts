@@ -199,8 +199,12 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     };
   }
 
-  drawBoard() {
+  clearCanvas() {
     this.context.clearRect(0, 0, this.boardWidth, this.boardHeight);
+  }
+
+  drawBoard() {
+    this.clearCanvas();
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.columns; x++) {
         if (this.board[y][x] !== 0) {
@@ -503,6 +507,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
       return;
     }
     this.isGameOver = true;
+    this.fillBoardAnimation();
     this.tetrisThemeAudio.pause();
     this.tetrisThemeAudio.currentTime = 0;
     if (this.gameLoopSubscription) {
@@ -512,7 +517,10 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
       this.moveDownInterval.unsubscribe();
     }
     await this.saveScore();
+    this.currentPiece = null;
+    await this.sleep(4000);
     this.openStartModal();
+    this.clearCanvas();
   }
 
   async saveScore() {
@@ -526,6 +534,32 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
       await this.tetrisScoreService.createTetrisScore(newScore);
       this.snackBar.open('Score saved!', 'Close', { duration: 3000 });
     }
+  }
+
+  async fillBoardAnimation() {
+    for (let row = this.rows; row >= 0; row--) {
+      this.board[row] = Array(this.columns).fill(1);
+      this.drawBoard();
+      await this.sleep(50); // tiempo en pintar cada línea
+    }
+    this.showGameOverMessage();
+  }
+
+  sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  showGameOverMessage() {
+    this.context.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    this.context.fillRect(0, 0, this.boardWidth, this.boardHeight);
+    this.context.fillStyle = 'white';
+    this.context.font = '30px Arial';
+    this.context.textAlign = 'center';
+    this.context.fillText(
+      'GAME OVER',
+      this.boardWidth / 2,
+      this.boardHeight / 2
+    );
   }
 
   togglePause() {
