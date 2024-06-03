@@ -46,13 +46,41 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   moveRightInterval!: Subscription;
 
   pieces = [
-    [1, 1, 1, 1], // I
-    [1, 1, 1, 0, 1], // L
-    [0, 1, 1, 0, 0, 1, 1], // O
-    [1, 1, 0, 0, 0, 1, 1], // Z
-    [1, 1, 1, 0, 0, 1], // T
-    [1, 0, 0, 0, 1, 1, 1], // J
-    [0, 1, 1, 0, 1, 1], // S
+    [
+      [0, 0, 0, 0],
+      [1, 1, 1, 1],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+    ], // I
+    [
+      [0, 0, 0],
+      [1, 1, 1],
+      [1, 0, 0],
+    ], // L
+    [
+      [1, 1],
+      [1, 1],
+    ], // O
+    [
+      [1, 1, 0],
+      [0, 1, 1],
+      [0, 0, 0],
+    ], // Z
+    [
+      [0, 0, 0],
+      [1, 1, 1],
+      [0, 1, 0],
+    ], // T
+    [
+      [0, 0, 0],
+      [1, 1, 1],
+      [0, 0, 1],
+    ], // J
+    [
+      [0, 1, 1],
+      [1, 1, 0],
+      [0, 0, 0],
+    ], // S
   ];
 
   colors = [
@@ -210,22 +238,24 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   drawPiece(piece: any) {
     this.context.fillStyle = piece.color;
     this.context.strokeStyle = 'pink';
-    for (let i = 0; i < piece.shape.length; i++) {
-      if (piece.shape[i]) {
-        const x = piece.x + (i % 4);
-        const y = piece.y + Math.floor(i / 4);
-        this.context.fillRect(
-          x * this.blockSize,
-          y * this.blockSize,
-          this.blockSize,
-          this.blockSize
-        );
-        this.context.strokeRect(
-          x * this.blockSize,
-          y * this.blockSize,
-          this.blockSize,
-          this.blockSize
-        );
+    for (let row = 0; row < piece.shape.length; row++) {
+      for (let col = 0; col < piece.shape[row].length; col++) {
+        if (piece.shape[row][col]) {
+          const x = piece.x + col;
+          const y = piece.y + row;
+          this.context.fillRect(
+            x * this.blockSize,
+            y * this.blockSize,
+            this.blockSize,
+            this.blockSize
+          );
+          this.context.strokeRect(
+            x * this.blockSize,
+            y * this.blockSize,
+            this.blockSize,
+            this.blockSize
+          );
+        }
       }
     }
   }
@@ -242,33 +272,40 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   }
 
   rotatePiece() {
-    const shape = this.currentPiece.shape;
-    const newShape = [];
-    for (let y = 0; y < 4; y++) {
-      for (let x = 0; x < 4; x++) {
-        newShape[x * 4 + y] = shape[(3 - y) * 4 + x];
-      }
-    }
+    const { shape } = this.currentPiece;
+    const newShape = shape[0].map((_: number, i: number) =>
+      shape.map((row: number[]) => row[i]).reverse()
+    );
+
     const oldShape = this.currentPiece.shape;
     this.currentPiece.shape = newShape;
     if (this.collides()) {
       this.currentPiece.shape = oldShape;
+    } else {
+      if (this.currentPiece.x + newShape[0].length > this.columns) {
+        this.currentPiece.x = this.columns - newShape[0].length;
+      }
+      if (this.currentPiece.y + newShape.length > this.rows) {
+        this.currentPiece.y = this.rows - newShape.length;
+      }
     }
   }
 
   collides() {
     const { shape, x, y } = this.currentPiece;
-    for (let i = 0; i < shape.length; i++) {
-      if (shape[i]) {
-        const newX = x + (i % 4);
-        const newY = y + Math.floor(i / 4);
-        if (
-          newX < 0 ||
-          newX >= this.columns ||
-          newY >= this.rows ||
-          (newY >= 0 && this.board[newY][newX])
-        ) {
-          return true;
+    for (let row = 0; row < shape.length; row++) {
+      for (let col = 0; col < shape[row].length; col++) {
+        if (shape[row][col]) {
+          const newX = x + col;
+          const newY = y + row;
+          if (
+            newX < 0 || // fuera del borde izquierdo
+            newX >= this.columns || // fuera del borde derecho
+            newY >= this.rows || // fuera del fondo
+            (newY >= 0 && this.board[newY][newX] !== 0) // colisión con otra pieza
+          ) {
+            return true;
+          }
         }
       }
     }
@@ -431,13 +468,15 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
 
   placePiece() {
     const { shape, x, y } = this.currentPiece;
-    for (let i = 0; i < shape.length; i++) {
-      if (shape[i]) {
-        const newX = x + (i % 4);
-        const newY = y + Math.floor(i / 4);
-        if (newY >= 0) {
-          this.board[newY][newX] =
-            this.colors.indexOf(this.currentPiece.color) + 1;
+    for (let row = 0; row < shape.length; row++) {
+      for (let col = 0; col < shape[row].length; col++) {
+        if (shape[row][col]) {
+          const newX = x + col;
+          const newY = y + row;
+          if (newY >= 0) {
+            this.board[newY][newX] =
+              this.colors.indexOf(this.currentPiece.color) + 1;
+          }
         }
       }
     }
