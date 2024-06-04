@@ -47,6 +47,11 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
 
   pieces = [
     [
+      [0, 0, 0],
+      [1, 1, 1],
+      [0, 1, 0],
+    ], // T
+    [
       [0, 0, 0, 0],
       [1, 1, 1, 1],
       [0, 0, 0, 0],
@@ -69,11 +74,6 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     [
       [0, 0, 0],
       [1, 1, 1],
-      [0, 1, 0],
-    ], // T
-    [
-      [0, 0, 0],
-      [1, 1, 1],
       [0, 0, 1],
     ], // J
     [
@@ -84,17 +84,18 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
   ];
 
   colors = [
+    'mediumpurple',
     'deepskyblue',
     'darkorange',
     'gold',
     'crimson',
-    'mediumpurple',
     'mediumblue',
     'forestgreen',
   ];
 
   private tetrisThemeAudio = new Audio('assets/tetris-theme.mp3');
   private clearLineAudio = new Audio('assets/clear-line.mp3');
+  private gameOverAudio = new Audio('assets/game-over.mp3');
 
   constructor(
     private tetrisScoreService: TetrisScoreService,
@@ -510,6 +511,7 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     this.fillBoardAnimation();
     this.tetrisThemeAudio.pause();
     this.tetrisThemeAudio.currentTime = 0;
+    this.gameOverAudio.play();
     if (this.gameLoopSubscription) {
       this.gameLoopSubscription.unsubscribe();
     }
