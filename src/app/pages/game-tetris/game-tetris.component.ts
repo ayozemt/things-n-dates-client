@@ -285,15 +285,23 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     const oldShape = this.currentPiece.shape;
     this.currentPiece.shape = newShape;
     if (this.collides()) {
-      this.currentPiece.shape = oldShape;
-    } else {
-      if (this.currentPiece.x + newShape[0].length > this.columns) {
-        this.currentPiece.x = this.columns - newShape[0].length;
+      this.currentPiece.x -= 1;
+      if (this.collides()) {
+        this.currentPiece.x += 2;
+        if (this.collides()) {
+          this.currentPiece.x -= 1;
+          this.currentPiece.shape = oldShape;
+        }
       }
-      if (this.currentPiece.y + newShape.length > this.rows) {
-        this.currentPiece.y = this.rows - newShape.length;
+    } else {
+      while (this.currentPiece.x + newShape[0].length > this.columns) {
+        this.currentPiece.x--;
+      }
+      while (this.currentPiece.x < 0) {
+        this.currentPiece.x++;
       }
     }
+    this.drawBoard();
   }
 
   collides() {
