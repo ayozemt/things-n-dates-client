@@ -69,7 +69,6 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     [
       [1, 1, 0],
       [0, 1, 1],
-      [0, 0, 0],
     ], // Z
     [
       [0, 0, 0],
@@ -79,7 +78,6 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     [
       [0, 1, 1],
       [1, 1, 0],
-      [0, 0, 0],
     ], // S
   ];
 
@@ -281,18 +279,26 @@ export class GameTetrisComponent implements OnInit, OnDestroy {
     const newShape = shape[0].map((_: number, i: number) =>
       shape.map((row: number[]) => row[i]).reverse()
     );
-
     const oldShape = this.currentPiece.shape;
     this.currentPiece.shape = newShape;
-    if (this.collides()) {
-      this.currentPiece.x -= 1;
-      if (this.collides()) {
-        this.currentPiece.x += 2;
-        if (this.collides()) {
-          this.currentPiece.x -= 1;
-          this.currentPiece.shape = oldShape;
-        }
+    const positions = [
+      { x: 0, y: 0 },
+      { x: -1, y: 0 },
+      { x: 1, y: 0 },
+      { x: -2, y: 0 },
+      { x: 2, y: 0 },
+    ];
+    let isValid = false;
+    for (const pos of positions) {
+      this.currentPiece.x += pos.x;
+      if (!this.collides()) {
+        isValid = true;
+        break;
       }
+      this.currentPiece.x -= pos.x;
+    }
+    if (!isValid) {
+      this.currentPiece.shape = oldShape;
     } else {
       while (this.currentPiece.x + newShape[0].length > this.columns) {
         this.currentPiece.x--;
